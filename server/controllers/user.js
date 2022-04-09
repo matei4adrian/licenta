@@ -8,7 +8,7 @@ const controller = {
     let err = false;
     if (!user.email) {
       res.status(400).send({
-        message: "Email trebuie sa fie completat!",
+        message: "Emailul trebuie sa fie completat!",
       });
       err = true;
     }

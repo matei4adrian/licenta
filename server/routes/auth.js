@@ -9,7 +9,7 @@ router.get("/fail", (req, res) =>
   res.status(400).send({ message: "Logarea a esuat!" })
 );
 router.get("/success", otherController.isLoggedIn, (req, res) => {
-  res.status(200).send({ message: `Buna, ${req.user.userName}` });
+  res.status(200).send({ message: `Buna, ${req.user.username}` });
 });
 router.get("/logout-success", (req, res) => {
   res.status(200).send({ message: "Te-ai delogat cu succes!" });

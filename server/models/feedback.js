@@ -1,0 +1,16 @@
+module.exports = (sequelize, DataTypes) => {
+  return sequelize.define("feedback", {
+    email: { type: DataTypes.STRING, allowNull: false },
+    comentariu: { type: DataTypes.STRING, allowNull: false },
+    calificativ: {
+      type: DataTypes.ENUM,
+      allowNull: false,
+      values: ["1", "2", "3", "4", "5"],
+    },
+    verificat: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+  });
+};
