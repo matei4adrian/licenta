@@ -1,6 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define("feedback", {
     email: { type: DataTypes.STRING, allowNull: false },
+    nume: { type: DataTypes.STRING, allowNull: false },
+    subiect: { type: DataTypes.STRING, allowNull: false },
     comentariu: { type: DataTypes.STRING, allowNull: false },
     calificativ: {
       type: DataTypes.ENUM,

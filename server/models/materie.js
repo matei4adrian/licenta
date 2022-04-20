@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         values: ["1", "2"],
       },
+      an: {
+        type: DataTypes.ENUM,
+        allowNull: false,
+        values: ["1", "2", "3"],
+      },
     },
     {
       freezeTableName: true,
