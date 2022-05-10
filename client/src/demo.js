@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { ViewState, EditingState } from "@devexpress/dx-react-scheduler";
@@ -14,35 +14,21 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 import IconButton from "@mui/material/IconButton";
 import ErrorIcon from "@mui/icons-material/Error";
-import { type } from "./demo-data/tasks";
+import EditIcon from "@mui/icons-material/Edit";
+import PersonIcon from "@mui/icons-material/Person";
+import RoomIcon from "@mui/icons-material/Room";
+import GroupIcon from "@mui/icons-material/Group";
+// import { type } from "./demo-data/tasks";
+import Grid from "@mui/material/Grid";
+import ClassIcon from "@mui/icons-material/Class";
 
 const PREFIX = "Demo";
 
 const classes = {
-  cell: `${PREFIX}-cell`,
-  content: `${PREFIX}-content`,
-  text: `${PREFIX}-text`,
-  sun: `${PREFIX}-sun`,
-  cloud: `${PREFIX}-cloud`,
-  rain: `${PREFIX}-rain`,
-  sunBack: `${PREFIX}-sunBack`,
-  cloudBack: `${PREFIX}-cloudBack`,
-  rainBack: `${PREFIX}-rainBack`,
-  opacity: `${PREFIX}-opacity`,
   appointment: `${PREFIX}-appointment`,
   apptContent: `${PREFIX}-apptContent`,
-  flexibleSpace: `${PREFIX}-flexibleSpace`,
-  flexContainer: `${PREFIX}-flexContainer`,
-  tooltipContent: `${PREFIX}-tooltipContent`,
-  tooltipText: `${PREFIX}-tooltipText`,
-  title: `${PREFIX}-title`,
   icon: `${PREFIX}-icon`,
-  circle: `${PREFIX}-circle`,
   textCenter: `${PREFIX}-textCenter`,
-  dateAndTitle: `${PREFIX}-dateAndTitle`,
-  titleContainer: `${PREFIX}-titleContainer`,
-  container: `${PREFIX}-container`,
-  commandButton: `${PREFIX}-commandButton`,
 };
 
 const DayScaleCell = (props) => {
@@ -80,25 +66,32 @@ const appointments = [
     title: "Algebra",
     startDate: new Date(2022, 3, 18, 9, 15),
     endDate: new Date(2022, 3, 18, 10, 45),
-    rRule: "FREQ=WEEKLY;BYDAY=MO",
-    // ownerId: 1,
+    type: "Seminar",
+    sala: "1022",
+    profesor: "Costel",
+    grupa: "1023, 1024",
+    rRule: "FREQ=WEEKLY;BYDAY=MO", //poa sa fie si din 2 in 2 sapt
   },
   {
     id: 1,
     title: "ATP",
     startDate: new Date(2022, 3, 18, 9, 15),
     endDate: new Date(2022, 3, 18, 10, 45),
+    type: "Curs",
+    sala: "1022",
+    profesor: "Costel",
+    grupa: "1023, 1024",
     rRule: "FREQ=WEEKLY;BYDAY=MO",
   },
 ];
 
-const resources = [
-  {
-    fieldName: "typeId",
-    title: "Type",
-    instances: type,
-  },
-];
+// const resources = [
+//   {
+//     fieldName: "typeId",
+//     title: "Type",
+//     instances: type,
+//   },
+// ];
 
 const Appointment = ({ ...restProps }) => {
   // console.log(restProps);
@@ -125,7 +118,14 @@ const Header = ({ children, appointmentData, ...restProps }) => {
   return (
     <AppointmentTooltip.Header {...restProps}>
       <IconButton
-        aria-label="add to shopping cart"
+        aria-label="edit appointment"
+        size="large"
+        onClick={() => alert(JSON.stringify(appointmentData))}
+      >
+        <EditIcon />
+      </IconButton>
+      <IconButton
+        aria-label="add feedback"
         size="large"
         onClick={() => alert(JSON.stringify(appointmentData))}
       >
@@ -135,73 +135,136 @@ const Header = ({ children, appointmentData, ...restProps }) => {
   );
 };
 
-const TextEditor = (props) => {
-  if (props.type === "multilineTextEditor") {
-    return null;
-  }
-  return <AppointmentForm.TextEditor {...props} />;
-};
+// const TextEditor = (props) => {
+//   if (props.type === "multilineTextEditor") {
+//     return null;
+//   }
+//   return <AppointmentForm.TextEditor {...props} />;
+// };
 
-const BooleanEditor = (props) => {
-  if (props.label === "All Day") {
-    return null;
-  }
+// const BooleanEditor = (props) => {
+//   if (props.label === "All Day") {
+//     return null;
+//   }
 
-  console.log(props);
-  return <AppointmentForm.BooleanEditor {...props} />;
-};
+//   console.log(props);
+//   return <AppointmentForm.BooleanEditor {...props} />;
+// };
 
-const Label = (props) => {
-  if (props.text === "More Information") {
-    return null;
-  }
-  return <AppointmentForm.Label {...props} />;
-};
+// const Label = (props) => {
+//   if (props.text === "More Information") {
+//     return null;
+//   }
+//   return <AppointmentForm.Label {...props} />;
+// };
 
-const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
-  const onTypeFieldChange = (nextValue) => {
-    onFieldChange({ type: nextValue });
-  };
+// const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+//   // const onTypeFieldChange = (nextValue) => {
+//   //   onFieldChange({ type: nextValue });
+//   // };
 
+//   return (
+//     <AppointmentForm.BasicLayout
+//       appointmentData={appointmentData}
+//       onFieldChange={onFieldChange}
+//       {...restProps}
+//     >
+//       {/* <AppointmentForm.Label text="Type" type="title" />
+//       <AppointmentForm.Select
+//         value={appointmentData.type}
+//         onValueChange={onTypeFieldChange}
+//         availableOptions={[
+//           { id: "1", text: "Seminar" },
+//           { id: "2", text: "Curs" },
+//         ]}
+//         type="filledSelect"
+//       /> */}
+//     </AppointmentForm.BasicLayout>
+//   );
+// };
+
+// const SelectComponent = (props) => {
+//   return (
+//     <AppointmentForm.Select
+//       {...props}
+//       availableOptions={[props.availableOptions[1]]}
+//     />
+//   );
+// };
+
+// const RecurrenceLayout = ({ ...restProps }) => {
+//   console.log(restProps);
+//   return (
+//     <AppointmentForm.RecurrenceLayout
+//       {...restProps}
+//       firstDayOfWeek={1}
+//       selectComponent={SelectComponent}
+//     />
+//   );
+// };
+
+const StyledGrid = styled(Grid)(() => ({
+  [`&.${classes.textCenter}`]: {
+    textAlign: "center",
+  },
+}));
+
+const AppointmentGrid = ({ text, info }) => {
   return (
-    <AppointmentForm.BasicLayout
-      appointmentData={appointmentData}
-      onFieldChange={onFieldChange}
-      {...restProps}
-    >
-      {/* <AppointmentForm.Label text="Type" type="title" />
-      <AppointmentForm.Select
-        value={appointmentData.type}
-        onValueChange={onTypeFieldChange}
-        availableOptions={[
-          { id: "1", text: "Seminar" },
-          { id: "2", text: "Curs" },
-        ]}
-        type="filledSelect"
-      /> */}
-    </AppointmentForm.BasicLayout>
+    <Grid item xs={10}>
+      <span>
+        {text} {info}
+      </span>
+    </Grid>
   );
 };
 
-const SelectComponent = (props) => {
+const StyledType = styled(ClassIcon)(({ theme: { palette } }) => ({
+  [`&.${classes.icon}`]: {
+    color: palette.action.active,
+  },
+}));
+
+const StyledSala = styled(RoomIcon)(({ theme: { palette } }) => ({
+  [`&.${classes.icon}`]: {
+    color: palette.action.active,
+  },
+}));
+
+const StyledProfesor = styled(PersonIcon)(({ theme: { palette } }) => ({
+  [`&.${classes.icon}`]: {
+    color: palette.action.active,
+  },
+}));
+
+const StyledGrupa = styled(GroupIcon)(({ theme: { palette } }) => ({
+  [`&.${classes.icon}`]: {
+    color: palette.action.active,
+  },
+}));
+
+const withGrid = (Icon) => {
   return (
-    <AppointmentForm.Select
-      {...props}
-      availableOptions={[props.availableOptions[1]]}
-    />
+    <StyledGrid item xs={2} className={classes.textCenter}>
+      <Icon className={classes.icon} />
+    </StyledGrid>
   );
 };
 
-const RecurrenceLayout = ({ ...restProps }) => {
-  console.log(restProps);
-  return (
-    <AppointmentForm.RecurrenceLayout
-      {...restProps}
-      firstDayOfWeek={1}
-      selectComponent={SelectComponent}
-    />
-  );
-};
+const Content = ({ children, appointmentData, ...restProps }) => (
+  <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+    <Grid container alignItems="center">
+      {withGrid(StyledType)}
+      <AppointmentGrid info={appointmentData.type} />
+      {withGrid(StyledGrupa)}
+      <AppointmentGrid text="Grupa" info={appointmentData.grupa} />
+      {withGrid(StyledProfesor)}
+      <AppointmentGrid text="Profesor" info={appointmentData.profesor} />
+      {withGrid(StyledSala)}
+      <AppointmentGrid text="Sala" info={appointmentData.sala} />
+    </Grid>
+  </AppointmentTooltip.Content>
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -212,6 +275,25 @@ export default class Demo extends React.PureComponent {
     };
 
     this.commitChanges = this.commitChanges.bind(this);
+  }
+
+  submitForm(e) {
+    e.preventDefault();
+    const name = document.getElementById("name");
+    const files = document.getElementById("files");
+    const formData = new FormData();
+    formData.append("compania", name.value);
+    formData.append("fotografie", files.files[0]);
+
+    fetch("http://localhost:8080/api/vouchers/", {
+      method: "POST",
+      body: formData,
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
+    })
+      .then((res) => console.log("dsd", res))
+      .catch((err) => ("Error occured", err));
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -257,23 +339,42 @@ export default class Demo extends React.PureComponent {
             appointmentComponent={Appointment}
             appointmentContentComponent={AppointmentContent}
           />
-          <Resources data={resources} />
+          {/* <Resources data={resources} /> */}
           <EditRecurrenceMenu />
           <ConfirmationDialog />
           <AppointmentTooltip
             headerComponent={Header}
+            contentComponent={Content}
             showCloseButton
             showDeleteButton
-            showOpenButton
           />
-          <AppointmentForm
+          {/* <AppointmentForm
             basicLayoutComponent={BasicLayout}
             textEditorComponent={TextEditor}
             labelComponent={Label}
             booleanEditorComponent={BooleanEditor}
             recurrenceLayoutComponent={RecurrenceLayout}
-          />
+          /> */}
         </Scheduler>
+
+        <body>
+          <div class="container">
+            <h1>File Upload</h1>
+            <form id="form" onSubmit={this.submitForm}>
+              <div class="input-group">
+                <label for="name">Your name</label>
+                <input name="name" id="name" placeholder="Enter your name" />
+              </div>
+              <div class="input-group">
+                <label for="files">Select files</label>
+                <input id="files" type="file" />
+              </div>
+              <button class="submit-btn" type="submit">
+                Upload
+              </button>
+            </form>
+          </div>
+        </body>
       </Paper>
     );
   }

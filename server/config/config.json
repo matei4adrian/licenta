@@ -6,5 +6,5 @@
     "password": "",
     "database": "orar"
   },
-  "backend_url": "http://localhost:8080/"
+  "backend_url": "http://localhost:3000"
 }

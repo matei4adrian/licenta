@@ -8,6 +8,11 @@ const keys = require("./config/keys");
 const config = require("./config/config.json");
 const app = express();
 
+global.__basedir = __dirname;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(
   cors({
     origin: config.backend_url + "", // allow to server to accept request from different origin
@@ -15,9 +20,6 @@ app.use(
     credentials: true, // allow session cookie from browser to pass through,
   })
 );
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 app.use(
   cookieSession({
@@ -35,7 +37,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(fileUpload());
+// app.use(fileUpload());
 
 app.use("/api", router);
 
