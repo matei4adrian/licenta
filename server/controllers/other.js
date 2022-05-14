@@ -1,4 +1,5 @@
 const connection = require("../models").connection;
+const path = require("path");
 const config = require("../config/config.json");
 const mysql = require("mysql2/promise");
 const multer = require("multer");
@@ -15,7 +16,12 @@ var storage = multer.diskStorage({
     cb(null, __basedir + "/resources/static/assets/uploads/");
   },
   filename: (req, file, cb) => {
-    cb(null, `${req.body.compania}-${Date.now()}.jpg`);
+    const originalname = file.originalname.substring(
+      0,
+      file.originalname.length - path.extname(file.originalname).length
+    );
+    console.log(originalname);
+    cb(null, `${originalname}.jpg`);
   },
 });
 

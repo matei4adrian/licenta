@@ -326,7 +326,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler data={data} locale={"ro-RO"}>
           <EditingState onCommitChanges={this.commitChanges} />
-          <ViewState defaultCurrentDate="2022-04-17" />
+          {/* <ViewState defaultCurrentDate="2022-04-19" /> */}
 
           <WeekView
             startDayHour={5.75}

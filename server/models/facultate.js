@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     "facultate",
     {
       denumire: { type: DataTypes.STRING, allowNull: false },
-      fotografie: DataTypes.BLOB("long"),
+      fotografie: DataTypes.STRING,
     },
     {
       freezeTableName: true,

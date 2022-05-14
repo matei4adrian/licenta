@@ -25,7 +25,10 @@ const Voucher = VoucherModel(db, Sequelize);
 Facultate.hasMany(Curs);
 Curs.belongsTo(Facultate);
 
-Serie.hasMany(Grupa);
+Serie.hasMany(Grupa, {
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
 Grupa.belongsTo(Serie);
 
 Sala.hasMany(Curs);
