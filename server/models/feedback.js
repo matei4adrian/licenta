@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       values: ["1", "2", "3", "4", "5"],
     },
-    verificat: {
+    esteVerificat: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
