@@ -57,8 +57,6 @@ const controller = {
   update: async (req, res) => {
     if (Object.keys(req.body).length === 0) {
       res.status(400).send({ message: "Introduceti datele!" });
-    } else if (!req.body.numar) {
-      res.status(400).send({ message: "Introduceti numarul grupei!" });
     } else {
       SerieDB.findByPk(req.params.serieId)
         .then((serie) => {
@@ -68,15 +66,24 @@ const controller = {
               .then(async (grupe) => {
                 const grupa = grupe.shift();
                 if (grupa) {
-                  const grupaExistenta = await GrupaDB.findOne({
-                    where: {
-                      numar: req.body.numar,
-                    },
-                  });
+                  const grupaExistenta = req.body.numar
+                    ? await GrupaDB.findOne({
+                        where: {
+                          numar: req.body.numar,
+                        },
+                      })
+                    : null;
                   if (!grupaExistenta) {
-                    Object.assign(grupa, req.body);
-                    await grupa.save();
-                    res.status(202).send({ message: "Grupa actualizata!" });
+                    const serieExistenta = req.body.serieId
+                      ? await SerieDB.findByPk(req.body.serieId)
+                      : null;
+                    if (serieExistenta || !req.body.serieId) {
+                      Object.assign(grupa, req.body);
+                      await grupa.save();
+                      res.status(202).send({ message: "Grupa actualizata!" });
+                    } else {
+                      res.status(400).send({ message: "Seria nu exista!" });
+                    }
                   } else {
                     res.status(400).send({ message: "Grupa exista deja!" });
                   }

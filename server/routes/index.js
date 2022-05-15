@@ -9,6 +9,8 @@ const grupaRouter = require("./grupa");
 const facultateRouter = require("./facultate");
 const feedbackRouter = require("./feedback");
 const salaRouter = require("./sala");
+const materieRouter = require("./materie");
+const profesorRouter = require("./profesor");
 
 router.use("/users", userRouter);
 router.use("/auth", authRouter);
@@ -18,6 +20,8 @@ router.use("/grupe", grupaRouter);
 router.use("/facultati", facultateRouter);
 router.use("/feedbacks", feedbackRouter);
 router.use("/sali", salaRouter);
+router.use("/materii", materieRouter);
+router.use("/profesori", profesorRouter);
 router.use("/", otherRouter);
 
 module.exports = router;

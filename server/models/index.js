@@ -43,8 +43,16 @@ Profesor.belongsTo(Curs);
 Curs.belongsToMany(Grupa, { through: "Curs_Grupa" });
 Grupa.belongsToMany(Curs, { through: "Curs_Grupa" });
 
-Materie.belongsToMany(Profesor, { through: "Materie_Profesor" });
-Profesor.belongsToMany(Materie, { through: "Materie_Profesor" });
+Materie.belongsToMany(Profesor, {
+  through: "Materie_Profesor",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+Profesor.belongsToMany(Materie, {
+  through: "Materie_Profesor",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
 
 module.exports = {
   connection: db,
