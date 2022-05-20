@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
-    "curs",
+    "activitate",
     {
       dataInceput: { type: DataTypes.DATE, allowNull: false },
       dataSfarsit: { type: DataTypes.DATE, allowNull: false },
-      tipCurs: {
+      tipActivitate: {
         type: DataTypes.ENUM,
         allowNull: false,
         values: ["Seminar", "Curs"],
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       freezeTableName: true,
-      tableName: "cursuri",
+      tableName: "activitati",
     }
   );
 };

@@ -18,7 +18,7 @@ const controller = {
     if (Object.keys(req.body).length === 0) {
       res.status(400).send({ message: "Introduceti datele!" });
     } else if (
-      Object.keys(req.body).length + 4 !==
+      Object.keys(req.body).length + 3 !==
       Object.keys(ProfesorDB.rawAttributes).length
     ) {
       res.status(400).json({ message: "Request malformat!" });

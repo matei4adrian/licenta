@@ -8,6 +8,7 @@ const feedback = require("./feedback");
 const sala = require("./sala");
 const materie = require("./materie");
 const profesor = require("./profesor");
+const activitate = require("./activitate");
 
 const controllers = {
   other,
@@ -20,6 +21,7 @@ const controllers = {
   sala,
   materie,
   profesor,
+  activitate,
 };
 
 module.exports = controllers;
