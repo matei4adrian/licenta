@@ -35,35 +35,24 @@ const getExistentaGrupe = async (grupe) => {
 const controller = {
   getAllFiltered: async (req, res) => {
     const { materie, grupa, profesor, sala } = req.query;
-    const toBeInclude = [];
-    if (grupa) {
-      toBeInclude.push(GrupaDB);
-    }
+    const where = {};
+    where.facultateId = req.params.facultateId;
+
     if (materie) {
-      toBeInclude.push({
-        model: MaterieDB,
-        where: { denumire: materie },
-      });
+      where["$materie.denumire$"] = materie;
+    }
+    if (grupa) {
+      where["$grupas.numar$"] = grupa;
     }
     if (profesor) {
-      toBeInclude.push(
-        profesor && {
-          model: ProfesorDB,
-          where: { email: profesor },
-        }
-      );
+      where["$profesor.email$"] = profesor;
     }
     if (sala) {
-      toBeInclude.push(
-        sala && {
-          model: SalaDB,
-          where: { numar: sala },
-        }
-      );
+      where["$sala.numar$"] = sala;
     }
     ActivitateDB.findAll({
-      where: { facultateId: req.params.facultateId },
-      include: toBeInclude,
+      where,
+      include: [MaterieDB, GrupaDB, ProfesorDB, SalaDB],
     })
       .then((activitati) => {
         res.status(200).send(activitati);
