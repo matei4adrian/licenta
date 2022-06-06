@@ -1,0 +1,16 @@
+.orar-page-container  {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.orar-page-content {
+    display: flex;
+    justify-content: center;
+}
+
+.orar-page-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0px 3% 3%;
+}

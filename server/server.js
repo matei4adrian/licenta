@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const passport = require("passport");
 const router = require("./routes");
 const cookieSession = require("cookie-session");
@@ -15,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: config.backend_url + "", // allow to server to accept request from different origin
+    origin: config.frontend_url, // allow to server to accept request from different origin
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // allow session cookie from browser to pass through,
   })
@@ -32,10 +33,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", config.backend_url + "");
-  next();
-});
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "resources/static/assets/uploads"))
+);
 
 // app.use(fileUpload());
 

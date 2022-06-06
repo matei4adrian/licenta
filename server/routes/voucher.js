@@ -4,7 +4,7 @@ const multerUpload = require("../controllers/other").uploadFile;
 const voucherController = require("../controllers").voucher;
 const otherController = require("../controllers").other;
 
-router.get("/", otherController.isLoggedIn, voucherController.getAll);
+router.get("/", voucherController.getAll);
 router.post(
   "/",
   [otherController.isLoggedIn, multerUpload.single("fotografie")],

@@ -1,0 +1,11 @@
+body,
+html,
+#root {
+  height: 100%;
+}
+
+.app-container {
+    display: grid;
+    height: 100%;
+    grid-template-rows: 1fr 12fr; 
+}

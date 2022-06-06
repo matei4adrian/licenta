@@ -11,17 +11,24 @@
     "@mui/icons-material": "^5.6.1",
     "@mui/lab": "^5.0.0-alpha.77",
     "@mui/material": "^5.6.1",
+    "@mui/x-data-grid": "^5.12.0",
+    "@mui/x-data-grid-generator": "^5.12.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "clsx": "^1.1.1",
+    "formik": "^2.2.9",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
-    "web-vitals": "^2.1.4"
+    "sass": "^1.52.1",
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -45,6 +52,8 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
+    "cross-env": "^7.0.3",
     "jest-watch-typeahead": "^0.6.5"
   }
 }

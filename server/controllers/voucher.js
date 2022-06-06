@@ -13,6 +13,7 @@ const controller = {
       });
   },
   add: async (req, res) => {
+    console.log(req);
     if (!req.body) {
       res.status(400).send({ message: "Body invalid!" });
     } else if (!req.body.descriere) {
@@ -45,23 +46,26 @@ const controller = {
       res.status(400).send({ message: "Voucher invalid!" });
     } else if (req.body.descriere.length < 10) {
       res.status(400).send({ message: "Voucher invalid!" });
-    } else if (req.file === undefined) {
-      return res.send(`Trebuie sa selectezi o fotografie!`);
     } else {
       VoucherDB.findByPk(req.params.voucherId)
         .then(async (voucher) => {
           if (voucher) {
             const initialPath = voucher.fotografie;
-            Object.assign(voucher, {
+            const updated = {
               compania: req.body.compania,
-              fotografie: req.file.filename,
               valoare: req.body.valoare,
               descriere: req.body.descriere,
-            });
+            };
+            if (req.file) {
+              updated["fotografie"] = req.file.filename;
+            }
+            Object.assign(voucher, updated);
             await voucher.save();
-            fs.unlinkSync(
-              `${__basedir}/resources/static/assets/uploads/${initialPath}`
-            );
+            if (req.file) {
+              fs.unlinkSync(
+                `${__basedir}/resources/static/assets/uploads/${initialPath}`
+              );
+            }
             res.status(202).send({ message: "Voucher actualizat!" });
           } else {
             res.status(404).json({ message: "Voucher-ul nu exista!" });

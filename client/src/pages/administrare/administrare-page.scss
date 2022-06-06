@@ -1,0 +1,30 @@
+.administrare-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.administrare-cards {
+    height: 70%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 20px 60px;
+    padding: 3%;
+}
+
+.administrare-title {  
+    text-align: center;
+    margin-top: 5% !important;
+}
+
+.administrare-layout {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 1100px) {
+    .administrare-cards {  grid-template-columns: auto;}
+}   

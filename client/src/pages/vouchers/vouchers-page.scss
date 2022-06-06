@@ -1,0 +1,35 @@
+.voucher-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    grid-gap: 20px 60px;
+}
+
+.voucher-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 3%;
+}
+
+.voucher-page-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0px 5%;
+}
+
+.no-voucher-added {
+    text-align: center;
+    margin-top: 10% !important;
+}
+
+.loading-vouchers-page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1100px) {
+    .voucher-cards {  grid-template-columns: auto;}
+}   

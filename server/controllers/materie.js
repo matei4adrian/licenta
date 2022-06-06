@@ -66,7 +66,7 @@ const controller = {
             },
           })
         : null;
-      if (!materieExistenta) {
+      if (!materieExistenta || materieExistenta.id === req.body.id) {
         MaterieDB.findByPk(req.params.materieId)
           .then(async (materie) => {
             if (materie) {

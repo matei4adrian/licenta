@@ -1,0 +1,33 @@
+.voucher-card-content {
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+}
+
+.voucher-card-button {
+    justify-content: space-between;
+    margin-bottom: 2%
+}
+
+.denumire-voucher {
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+           line-clamp: 2; 
+     -webkit-box-orient: vertical;
+}
+
+.detalii-layout {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 0 10%;
+}
+
+.detalii-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5%;
+}

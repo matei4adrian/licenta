@@ -1,0 +1,23 @@
+.voucher-form {  
+    display: grid;
+    grid-gap: 20px;
+    width: 75%
+}
+
+.grid-voucher {
+    display: flex;
+    justify-content: center;
+}
+
+.voucher-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5%;
+}
+
+.error-message{
+    color: #f44336;
+    font-size: 0.75rem;
+    margin-top: 3px;
+    margin-right: 100px;
+}
