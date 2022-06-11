@@ -11,6 +11,8 @@ import VouchersPage from "./pages/vouchers/vouchers-page";
 import ColorModeContext from "./components/contexts/color-mode-context";
 import UserContext from "./components/contexts/user-context";
 import MateriiPage from "./pages/materii/materii-page";
+import ProfesoriPage from "./pages/profesori/profesori-page";
+import SaliPage from "./pages/sali/sali-page";
 
 const getDesignTokens = (mode) => ({
   typography: {
@@ -69,6 +71,8 @@ function App() {
       { path: "/administrare", element: <AdministrarePage /> },
       { path: "/vouchers", element: <VouchersPage /> },
       { path: "/materii", element: <MateriiPage /> },
+      { path: "/profesori", element: <ProfesoriPage /> },
+      { path: "/sali", element: <SaliPage /> },
     ]);
 
   return (

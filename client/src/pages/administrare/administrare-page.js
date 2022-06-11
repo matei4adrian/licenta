@@ -6,14 +6,14 @@ import { Context } from "../../components/contexts/user-context";
 import OptionCard from "../../components/option-card/option-card";
 
 const options = [
-  { id: 1, to: "https://google.com", denumire: "Facultati" },
-  { id: 2, to: "/materii", denumire: "Materii" },
-  { id: 3, to: "https://google.com", denumire: "Profesori" },
-  { id: 4, to: "https://google.com", denumire: "Sali" },
-  { id: 5, to: "https://google.com", denumire: "Serii" },
-  { id: 6, to: "https://google.com", denumire: "Grupe" },
-  { id: 7, to: "https://google.com", denumire: "Gestioneaza administratori" },
-  { id: 8, to: "https://google.com", denumire: "Gestioneaza feedback-uri" },
+  { id: 1, to: "/materii", denumire: "Materii" },
+  { id: 2, to: "/profesori", denumire: "Profesori" },
+  { id: 3, to: "/sali", denumire: "Sali" },
+  { id: 4, to: "https://google.com", denumire: "Serii" },
+  { id: 5, to: "https://google.com", denumire: "Grupe" },
+  { id: 6, to: "https://google.com", denumire: "Gestioneaza administratori" },
+  { id: 7, to: "https://google.com", denumire: "Gestioneaza feedback-uri" },
+  { id: 8, to: "https://google.com", denumire: "Statistici" },
 ];
 
 const AdministrarePage = () => {

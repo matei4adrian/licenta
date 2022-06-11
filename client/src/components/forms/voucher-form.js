@@ -4,7 +4,7 @@ import "./voucher-form.scss";
 import { TextField, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import TextArea from "../custom-text-field";
+import TextArea from "../custom-form-fields/custom-text-field";
 
 const VoucherForm = ({ onClose, onSubmit, voucher, submitText }) => {
   const initialValues = voucher
@@ -114,7 +114,6 @@ const VoucherForm = ({ onClose, onSubmit, voucher, submitText }) => {
                 required
                 value={undefined}
                 onChange={(event) => {
-                  console.log(event);
                   props.setFieldValue("fotografie", event.target.files[0]);
                 }}
               />

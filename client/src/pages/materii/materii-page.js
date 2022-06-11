@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
 import "./materii-page.scss";
 import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
@@ -7,11 +8,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import { Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { Context } from "../../components/contexts/user-context";
-import MateriiGrid from "../../components/custom-grid";
+import CustomGrid from "../../components/custom-grid";
 import BasicModalWithoutButtons from "../../components/basic-modal/basic-modal-without-buttons";
-import MateriiForm from "../../components/materii/materii-form";
+import MateriiForm from "../../components/forms/materii-form";
 import { BACKEND_URL } from "../../config";
 import Message from "../../components/message/message";
 import BasicModal from "../../components/basic-modal/basic-modal";
@@ -29,29 +30,48 @@ const MateriiPage = () => {
   const [materieToBeDeleted, setMaterieToBeDeleted] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
+  const isMobile = useMediaQuery({ query: `(max-width: 560px)` });
+
   const columns = [
     {
       field: "denumire",
       headerName: "Denumire",
       description: "Denumirea materiei",
-      flex: 1,
+      ...(!isMobile && { flex: 1 }),
+      renderCell: (params) => (
+        <Tooltip title={params.value.toString()}>
+          <span>{params.value.toString()}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "an",
       headerName: "Anul",
       description: "Anul corespunzator materiei",
-      flex: 1,
+      ...(!isMobile && { flex: 1 }),
+      renderCell: (params) => (
+        <Tooltip title={params.value.toString()}>
+          <span>{params.value.toString()}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "semestru",
       headerName: "Semestrul",
       description: "Semestrul corespunzator materiei",
-      flex: 1,
+      ...(!isMobile && { flex: 1 }),
+      renderCell: (params) => (
+        <Tooltip title={params.value.toString()}>
+          <span>{params.value.toString()}</span>
+        </Tooltip>
+      ),
     },
     {
-      field: "action",
+      field: "actiuni",
       headerName: "Actiuni",
       sortable: false,
+      filterable: false,
+      ...(!isMobile && { flex: 1 }),
       renderCell: (params) => {
         const handleCloseUpdateMaterieModal = () => {
           setOpenUpdateMaterieModal(false);
@@ -136,7 +156,7 @@ const MateriiPage = () => {
               onClose={handleCloseDeleteMaterieModal}
               title="Sterge materie"
               onSubmit={handleDeleteMaterie}
-              content={`Esti sigur ca vrei sa stergi acest materie?`}
+              content={`Esti sigur ca vrei sa stergi aceasta materie?`}
             />
           </div>
         );
@@ -153,7 +173,6 @@ const MateriiPage = () => {
   };
 
   const handleAddMaterie = async (values) => {
-    setErrorMessage("");
     await axios
       .post(BACKEND_URL + "/api/materii/", values, {
         withCredentials: true,
@@ -203,7 +222,7 @@ const MateriiPage = () => {
           Adauga materie
         </Button>
       </div>
-      <MateriiGrid columns={columns} rows={materii} loading={loading} />
+      <CustomGrid columns={columns} rows={materii} loading={loading} />
       <BasicModalWithoutButtons
         open={openAddMaterieModal}
         onClose={handleCloseAddMaterieModal}

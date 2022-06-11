@@ -84,24 +84,13 @@ const appointments = [
   {
     id: 2,
     title: "Bazele programarii",
-    startDate: new Date(2022, 3, 18, 9, 15),
-    endDate: new Date(2022, 3, 18, 10, 45),
+    startDate: new Date(2022, 3, 18, 12, 45),
+    endDate: new Date(2022, 3, 18, 14, 15),
     type: "Seminar",
     sala: "1022",
     profesor: "Vasile",
     grupa: "1023",
-    rRule: "FREQ=WEEKLY;BYDAY=MO",
-  },
-  {
-    id: 4,
-    title: "BSADSADAS",
-    startDate: new Date(2022, 3, 18, 9, 15),
-    endDate: new Date(2022, 3, 18, 10, 45),
-    type: "Seminar",
-    sala: "1022",
-    profesor: "Vasile",
-    grupa: "1023",
-    rRule: "FREQ=WEEKLY;BYDAY=MO",
+    rRule: "FREQ=WEEKLY;BYDAY=TU",
   },
 ];
 

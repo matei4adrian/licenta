@@ -9,7 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import VoucherCard from "../../components/voucher-card/voucher-card";
 import { BACKEND_URL } from "../../config";
 import BasicModalWithoutButtons from "../../components/basic-modal/basic-modal-without-buttons";
-import VoucherForm from "../../components/vouchers/voucher-form";
+import VoucherForm from "../../components/forms/voucher-form";
 
 const VoucherPage = () => {
   const user = useContext(Context);

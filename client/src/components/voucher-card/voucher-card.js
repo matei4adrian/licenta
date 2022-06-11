@@ -15,7 +15,7 @@ import { Context } from "../../components/contexts/user-context";
 import { BACKEND_URL } from "../../config";
 import BasicModal from "../basic-modal/basic-modal";
 import BasicModalWithoutButtons from "../basic-modal/basic-modal-without-buttons";
-import VoucherForm from "../vouchers/voucher-form";
+import VoucherForm from "../forms/voucher-form";
 
 const VoucherCard = (props) => {
   const { voucher, getVouchers } = props;
@@ -51,7 +51,6 @@ const VoucherCard = (props) => {
   };
 
   const handleUpdateVoucher = async (values) => {
-    console.log(values);
     var formData = new FormData();
     formData.append("compania", values.compania);
     if (values.fotografie) {

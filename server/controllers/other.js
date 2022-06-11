@@ -20,7 +20,6 @@ var storage = multer.diskStorage({
       0,
       file.originalname.length - path.extname(file.originalname).length
     );
-    console.log(originalname);
     cb(null, `${originalname}.jpg`);
   },
 });

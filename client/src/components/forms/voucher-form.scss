@@ -1,8 +1,11 @@
 .voucher-form {  
     display: grid;
     grid-gap: 20px;
-    width: 75%
 }
+
+@media (min-width: 600px) {
+    .voucher-form {  width: 75% }
+}   
 
 .grid-voucher {
     display: flex;

@@ -1,4 +1,5 @@
 const fs = require("fs");
+var path = require("path");
 const VoucherDB = require("../models").Voucher;
 
 const controller = {
@@ -13,7 +14,6 @@ const controller = {
       });
   },
   add: async (req, res) => {
-    console.log(req);
     if (!req.body) {
       res.status(400).send({ message: "Body invalid!" });
     } else if (!req.body.descriere) {
@@ -51,6 +51,11 @@ const controller = {
         .then(async (voucher) => {
           if (voucher) {
             const initialPath = voucher.fotografie;
+            const initialEntitiesWithThisPhoto = await VoucherDB.findAll({
+              where: {
+                fotografie: initialPath,
+              },
+            });
             const updated = {
               compania: req.body.compania,
               valoare: req.body.valoare,
@@ -61,7 +66,7 @@ const controller = {
             }
             Object.assign(voucher, updated);
             await voucher.save();
-            if (req.file) {
+            if (req.file && initialEntitiesWithThisPhoto.length === 1) {
               fs.unlinkSync(
                 `${__basedir}/resources/static/assets/uploads/${initialPath}`
               );
@@ -82,10 +87,17 @@ const controller = {
       .then(async (voucher) => {
         if (voucher) {
           const initialPath = voucher.fotografie;
+          const initialEntitiesWithThisPhoto = await VoucherDB.findAll({
+            where: {
+              fotografie: initialPath,
+            },
+          });
           await voucher.destroy();
-          fs.unlinkSync(
-            `${__basedir}/resources/static/assets/uploads/${initialPath}`
-          );
+          if (initialEntitiesWithThisPhoto.length === 1) {
+            fs.unlinkSync(
+              `${__basedir}/resources/static/assets/uploads/${initialPath}`
+            );
+          }
           res.status(202).send({ message: "Voucher sters!" });
         } else {
           res.status(404).json({ message: "Voucher-ul nu exista!" });

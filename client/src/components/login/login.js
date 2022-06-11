@@ -12,6 +12,8 @@ const Login = () => {
   const logout = new URLSearchParams(search).get("logout");
   const fail = new URLSearchParams(search).get("fail");
   const handleLogin = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("User-Agent", "Mozilla/5.0");
     window.location = `${BACKEND_URL}/api/auth/google`;
   };
 
