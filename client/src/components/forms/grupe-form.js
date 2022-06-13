@@ -25,6 +25,7 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
     serieId: Yup.object().nullable().required("Selectati seria!"),
   });
   const [serii, setSerii] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   const getSerii = async () => {
     await axios
@@ -92,6 +93,14 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
             <Autocomplete
               id="serieId"
               name="serieId"
+              open={openModal}
+              onOpen={(event) => {
+                setOpenModal(true);
+                event.stopPropagation();
+              }}
+              onClose={() => {
+                setOpenModal(false);
+              }}
               options={selectOptions}
               getOptionLabel={(option) => option.name}
               isOptionEqualToValue={(option, value) =>
@@ -109,6 +118,7 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
                   label="Seria"
                   name="serieId"
                   error={Boolean(props.touched.serieId && props.errors.serieId)}
+                  onClick={(event) => event.stopPropagation()}
                   helperText={
                     <ErrorMessage name="serieId" /> &&
                     props.touched.serieId &&
