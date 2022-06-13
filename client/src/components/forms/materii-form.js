@@ -1,17 +1,17 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import "./materii-form.scss";
+import "./forms.scss";
 import { TextField, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import MenuItem from "@mui/material/MenuItem";
 
-const MateriiForm = ({ onClose, onSubmit, materie, submitText }) => {
-  const initialValues = materie
+const MateriiForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
+  const initialValues = toBeEdited
     ? {
-        denumire: materie.denumire,
-        semestru: materie.semestru,
-        an: materie.an,
+        denumire: toBeEdited.denumire,
+        semestru: toBeEdited.semestru,
+        an: toBeEdited.an,
       }
     : {
         denumire: "",
@@ -27,18 +27,14 @@ const MateriiForm = ({ onClose, onSubmit, materie, submitText }) => {
   });
 
   return (
-    <Grid className="grid-materii">
+    <Grid className="grid-form">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {(props) => (
-          <Form
-            noValidate
-            onSubmit={props.handleSubmit}
-            className="materii-form"
-          >
+          <Form noValidate onSubmit={props.handleSubmit} className="form">
             <Field
               as={TextField}
               name="denumire"
@@ -113,7 +109,7 @@ const MateriiForm = ({ onClose, onSubmit, materie, submitText }) => {
             {!Boolean(props.touched.semestru && props.errors.semestru) ? (
               <div style={{ marginTop: "3px" }}></div>
             ) : null}
-            <div className="materii-form-buttons">
+            <div className="form-buttons">
               <Button onClick={onClose}>Inchide</Button>
               <Button
                 variant="contained"

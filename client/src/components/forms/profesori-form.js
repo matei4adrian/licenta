@@ -1,10 +1,9 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import "./profesori-form.scss";
+import "./forms.scss";
 import { TextField, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import MenuItem from "@mui/material/MenuItem";
 
 const ProfesoriForm = ({ onClose, onSubmit, profesor, submitText }) => {
   const initialValues = profesor
@@ -29,18 +28,14 @@ const ProfesoriForm = ({ onClose, onSubmit, profesor, submitText }) => {
   });
 
   return (
-    <Grid className="grid-profesori">
+    <Grid className="grid-form">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {(props) => (
-          <Form
-            noValidate
-            onSubmit={props.handleSubmit}
-            className="profesori-form"
-          >
+          <Form noValidate onSubmit={props.handleSubmit} className="form">
             <Field
               as={TextField}
               name="nume"
@@ -99,7 +94,7 @@ const ProfesoriForm = ({ onClose, onSubmit, profesor, submitText }) => {
               <div style={{ marginTop: "3px" }}></div>
             ) : null}
 
-            <div className="profesori-form-buttons">
+            <div className="form-buttons">
               <Button onClick={onClose}>Inchide</Button>
               <Button
                 variant="contained"

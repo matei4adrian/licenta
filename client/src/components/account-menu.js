@@ -13,7 +13,7 @@ const AccountMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const user = useContext(Context);
-  const { nume, prenume } = user;
+  const { nume, prenume, username, email } = user;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,7 +44,7 @@ const AccountMenu = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>
+          <Avatar sx={{ width: 36, height: 36 }}>
             {nume[0]}
             {prenume[0]}
           </Avatar>
@@ -85,6 +85,17 @@ const AccountMenu = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
+        <p
+          style={{
+            textAlign: "center",
+            fontSize: "14px",
+            padding: "0 14px",
+          }}
+        >
+          {username}
+          <br /> {email}
+        </p>
+
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />

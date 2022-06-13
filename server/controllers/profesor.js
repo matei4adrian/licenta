@@ -77,7 +77,10 @@ const controller = {
               },
             })
           : null;
-      if (!profesorExistent || profesorExistent.id === req.body.id) {
+      if (
+        !profesorExistent ||
+        profesorExistent.id === parseInt(req.params.profesorId)
+      ) {
         ProfesorDB.findByPk(req.params.profesorId)
           .then(async (profesor) => {
             if (profesor) {

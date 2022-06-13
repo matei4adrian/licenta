@@ -87,6 +87,9 @@ const MaterieToProfesorForm = ({
               name="materie"
               options={selectOptions}
               getOptionLabel={(option) => option.name}
+              isOptionEqualToValue={(option, value) =>
+                option.value === value.value
+              }
               style={{ width: 300 }}
               onBlur={props.handleBlur}
               onChange={(event, value) => {

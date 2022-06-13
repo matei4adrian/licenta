@@ -62,7 +62,7 @@ const controller = {
             },
           })
         : null;
-      if (!serie) {
+      if (!serie || serie.id === parseInt(req.params.serieId)) {
         SerieDB.findByPk(req.params.serieId)
           .then(async (serie) => {
             if (serie) {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
-import "./profesori-page.scss";
+import "./pages.scss";
 import { useNavigate } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,14 +14,14 @@ import AddIcon from "@mui/icons-material/Add";
 import { Tooltip, Typography } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Context } from "../../components/contexts/user-context";
-import CustomGrid from "../../components/custom-grid";
-import BasicModalWithoutButtons from "../../components/basic-modal/basic-modal-without-buttons";
-import { BACKEND_URL } from "../../config";
-import Message from "../../components/message/message";
-import BasicModal from "../../components/basic-modal/basic-modal";
-import ProfesoriForm from "../../components/forms/profesori-form";
-import MaterieToProfesorForm from "../../components/forms/materie-to-profesor-form";
+import { Context } from "../components/contexts/user-context";
+import CustomGrid from "../components/custom-grid";
+import BasicModalWithoutButtons from "../components/basic-modal/basic-modal-without-buttons";
+import { BACKEND_URL } from "../config";
+import Message from "../components/message/message";
+import BasicModal from "../components/basic-modal/basic-modal";
+import ProfesoriForm from "../components/forms/profesori-form";
+import MaterieToProfesorForm from "../components/forms/materie-to-profesor-form";
 
 const ProfesoriPage = () => {
   let navigate = useNavigate();
@@ -125,10 +125,13 @@ const ProfesoriPage = () => {
         };
 
         const handleEditProfesor = async (values) => {
+          if (errorMessage) {
+            setErrorMessage("");
+          }
           await axios
             .put(
               `${BACKEND_URL}/api/profesori/${profesorToBeEdited.id}`,
-              { ...values, id: profesorToBeEdited.id },
+              values,
               {
                 withCredentials: true,
               }
@@ -139,6 +142,7 @@ const ProfesoriPage = () => {
             })
             .catch((err) => {
               console.log(err);
+              setErrorMessage(err.response.data.message);
             });
         };
 
@@ -173,6 +177,10 @@ const ProfesoriPage = () => {
         };
 
         const handleMaterieToProfesor = async (values) => {
+          if (errorMessage) {
+            setErrorMessage("");
+          }
+
           const { materie: materieId } = values;
 
           profesorToMaterieType === "delete"
@@ -310,7 +318,9 @@ const ProfesoriPage = () => {
   };
 
   const handleAddProfesor = async (values) => {
-    setErrorMessage("");
+    if (errorMessage) {
+      setErrorMessage("");
+    }
     await axios
       .post(BACKEND_URL + "/api/profesori/", values, {
         withCredentials: true,
@@ -349,9 +359,9 @@ const ProfesoriPage = () => {
   }, [isLoggedIn, navigate]);
 
   return (
-    <div className="profesori-page-layout">
+    <div className="pages-layout">
       <Typography variant="h3">Profesori</Typography>
-      <div className="profesori-page-buttons">
+      <div className="pages-buttons">
         <Button
           variant="contained"
           startIcon={<AddIcon />}

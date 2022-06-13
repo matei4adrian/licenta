@@ -123,7 +123,7 @@ const VoucherCard = (props) => {
         </div>
         {descriere.length > 150 && (
           <Button
-            variant="contained"
+            variant="outlined"
             endIcon={<NavigateNextIcon />}
             onClick={() => setOpenDetaliiModal(true)}
           >

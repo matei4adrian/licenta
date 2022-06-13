@@ -1,14 +1,14 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import "./sali-form.scss";
+import "./forms.scss";
 import { TextField, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const SaliForm = ({ onClose, onSubmit, sala, submitText }) => {
-  const initialValues = sala
+const SaliForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
+  const initialValues = toBeEdited
     ? {
-        numar: sala.numar,
+        numar: toBeEdited.numar,
       }
     : {
         numar: "",
@@ -18,14 +18,14 @@ const SaliForm = ({ onClose, onSubmit, sala, submitText }) => {
   });
 
   return (
-    <Grid className="grid-sali">
+    <Grid className="grid-form">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {(props) => (
-          <Form noValidate onSubmit={props.handleSubmit} className="sali-form">
+          <Form noValidate onSubmit={props.handleSubmit} className="form">
             <Field
               as={TextField}
               name="numar"
@@ -46,7 +46,7 @@ const SaliForm = ({ onClose, onSubmit, sala, submitText }) => {
               <div style={{ marginTop: "3px" }}></div>
             ) : null}
 
-            <div className="sali-form-buttons">
+            <div className="form-buttons">
               <Button onClick={onClose}>Inchide</Button>
               <Button
                 variant="contained"

@@ -1,21 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
-import "./materii-page.scss";
+import "./pages.scss";
 import { useNavigate } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import { Tooltip, Typography } from "@mui/material";
-import { Context } from "../../components/contexts/user-context";
-import CustomGrid from "../../components/custom-grid";
-import BasicModalWithoutButtons from "../../components/basic-modal/basic-modal-without-buttons";
-import MateriiForm from "../../components/forms/materii-form";
-import { BACKEND_URL } from "../../config";
-import Message from "../../components/message/message";
-import BasicModal from "../../components/basic-modal/basic-modal";
+import { Context } from "../components/contexts/user-context";
+import CustomGrid from "../components/custom-grid";
+import BasicModalWithoutButtons from "../components/basic-modal/basic-modal-without-buttons";
+import MateriiForm from "../components/forms/materii-form";
+import { BACKEND_URL } from "../config";
+import Message from "../components/message/message";
+import ActiuniColumn from "../components/actiuni-column";
 
 const MateriiPage = () => {
   let navigate = useNavigate();
@@ -73,92 +70,26 @@ const MateriiPage = () => {
       filterable: false,
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => {
-        const handleCloseUpdateMaterieModal = () => {
-          setOpenUpdateMaterieModal(false);
-        };
-
-        const handleOpenUpdateMaterieModal = () => {
-          setMaterieToBeEdited(params.row);
-          setOpenUpdateMaterieModal(true);
-        };
-
-        const handleOpenDeleteMaterieModal = () => {
-          setMaterieToBeDeleted(params.row);
-          setOpenDeleteMaterieModal(true);
-        };
-
-        const handleCloseDeleteMaterieModal = () => {
-          setOpenDeleteMaterieModal(false);
-        };
-
-        const handleEditMaterie = async (values) => {
-          await axios
-            .put(
-              `${BACKEND_URL}/api/materii/${materieToBeEdited.id}`,
-              { ...values, id: materieToBeEdited.id },
-              {
-                withCredentials: true,
-              }
-            )
-            .then(() => {
-              handleCloseUpdateMaterieModal();
-              getMaterii();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        };
-
-        const handleDeleteMaterie = async () => {
-          await axios
-            .delete(`${BACKEND_URL}/api/materii/${materieToBeDeleted.id}`, {
-              withCredentials: true,
-            })
-            .then(() => {
-              handleCloseDeleteMaterieModal();
-              getMaterii();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        };
-
         return (
-          <div>
-            <IconButton
-              aria-label="edit"
-              onClick={handleOpenUpdateMaterieModal}
-            >
-              <EditIcon />
-            </IconButton>
-            <IconButton
-              aria-label="delete"
-              color="error"
-              onClick={handleOpenDeleteMaterieModal}
-            >
-              <DeleteIcon />
-            </IconButton>
-            <BasicModalWithoutButtons
-              open={openUpdateMaterieModal}
-              onClose={handleCloseUpdateMaterieModal}
-              title="Actualizeaza materie"
-              content={
-                <MateriiForm
-                  onSubmit={handleEditMaterie}
-                  onClose={handleCloseUpdateMaterieModal}
-                  submitText="Actualizeaza"
-                  materie={materieToBeEdited}
-                />
-              }
-            />
-            <BasicModal
-              open={openDeleteMaterieModal}
-              onClose={handleCloseDeleteMaterieModal}
-              title="Sterge materie"
-              onSubmit={handleDeleteMaterie}
-              content={`Esti sigur ca vrei sa stergi aceasta materie?`}
-            />
-          </div>
+          <ActiuniColumn
+            params={params}
+            getItems={getMaterii}
+            openUpdateModal={openUpdateMaterieModal}
+            openDeleteModal={openDeleteMaterieModal}
+            setOpenUpdateModal={setOpenUpdateMaterieModal}
+            setOpenDeleteModal={setOpenDeleteMaterieModal}
+            toBeEdited={materieToBeEdited}
+            setToBeEdited={setMaterieToBeEdited}
+            setToBeDeleted={setMaterieToBeDeleted}
+            editUrl={`${BACKEND_URL}/api/materii/${materieToBeEdited.id}`}
+            deleteUrl={`${BACKEND_URL}/api/materii/${materieToBeDeleted.id}`}
+            updateTitle="Actualizeaza materie"
+            deleteTitle="Sterge materie"
+            deleteContent="Esti sigur ca vrei sa stergi aceasta materie?"
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
+            Form={MateriiForm}
+          />
         );
       },
     },
@@ -173,6 +104,9 @@ const MateriiPage = () => {
   };
 
   const handleAddMaterie = async (values) => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
     await axios
       .post(BACKEND_URL + "/api/materii/", values, {
         withCredentials: true,
@@ -211,9 +145,9 @@ const MateriiPage = () => {
   }, [isLoggedIn, navigate]);
 
   return (
-    <div className="materii-page-layout">
+    <div className="pages-layout">
       <Typography variant="h3">Materii</Typography>
-      <div className="materii-page-buttons">
+      <div className="pages-buttons">
         <Button
           variant="contained"
           startIcon={<AddIcon />}

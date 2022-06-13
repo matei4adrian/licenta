@@ -43,7 +43,7 @@ const controller = {
           numar: req.body.numar,
         },
       });
-      if (!salaExistenta || salaExistenta.id === req.body.id) {
+      if (!salaExistenta || salaExistenta.id === parseInt(req.params.salaId)) {
         SalaDB.findByPk(req.params.salaId)
           .then(async (sala) => {
             if (sala) {

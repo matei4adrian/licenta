@@ -10,9 +10,11 @@ import AdministrarePage from "./pages/administrare/administrare-page";
 import VouchersPage from "./pages/vouchers/vouchers-page";
 import ColorModeContext from "./components/contexts/color-mode-context";
 import UserContext from "./components/contexts/user-context";
-import MateriiPage from "./pages/materii/materii-page";
-import ProfesoriPage from "./pages/profesori/profesori-page";
-import SaliPage from "./pages/sali/sali-page";
+import MateriiPage from "./pages/materii-page";
+import ProfesoriPage from "./pages/profesori-page";
+import SaliPage from "./pages/sali-page";
+import SeriiPage from "./pages/serii-page";
+import GrupePage from "./pages/grupe-page";
 
 const getDesignTokens = (mode) => ({
   typography: {
@@ -73,6 +75,8 @@ function App() {
       { path: "/materii", element: <MateriiPage /> },
       { path: "/profesori", element: <ProfesoriPage /> },
       { path: "/sali", element: <SaliPage /> },
+      { path: "/serii", element: <SeriiPage /> },
+      { path: "/grupe", element: <GrupePage /> },
     ]);
 
   return (
