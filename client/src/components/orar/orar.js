@@ -224,7 +224,7 @@ const Orar = () => {
   return (
     <Paper className="orar-paper">
       <Scheduler data={data} locale={"ro-RO"}>
-        <EditingState onCommitChanges={commitChanges} />
+        {/* <EditingState onCommitChanges={commitChanges}  /> */}
 
         <WeekView
           startDayHour={5.75}
@@ -237,8 +237,8 @@ const Orar = () => {
           appointmentComponent={Appointment}
           appointmentContentComponent={AppointmentContent}
         />
-        <EditRecurrenceMenu />
-        <ConfirmationDialog />
+        {/* <EditRecurrenceMenu /> */}
+        {/* <ConfirmationDialog /> */}
         <AppointmentTooltip
           headerComponent={Header}
           contentComponent={Content}

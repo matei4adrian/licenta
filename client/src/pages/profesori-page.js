@@ -9,9 +9,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import { Tooltip, Typography } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Context } from "../components/contexts/user-context";
@@ -22,9 +21,10 @@ import Message from "../components/message/message";
 import BasicModal from "../components/basic-modal/basic-modal";
 import ProfesoriForm from "../components/forms/profesori-form";
 import MaterieToProfesorForm from "../components/forms/materie-to-profesor-form";
+import Header from "../components/administrare-child-page/header";
 
 const ProfesoriPage = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const user = useContext(Context);
   const { isLoggedIn } = user;
   const [profesori, setProfesori] = useState([]);
@@ -360,16 +360,11 @@ const ProfesoriPage = () => {
 
   return (
     <div className="pages-layout">
-      <Typography variant="h3">Profesori</Typography>
-      <div className="pages-buttons">
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleOpenAddProfesorModal}
-        >
-          Adauga profesor
-        </Button>
-      </div>
+      <Header
+        pageTitleText="Profesori"
+        addButtonText="Adauga profesor"
+        handleOpenAddModal={handleOpenAddProfesorModal}
+      />
       <CustomGrid
         columns={columns}
         rows={profesori.map((profesor) => {
@@ -378,7 +373,13 @@ const ProfesoriPage = () => {
             materiiProfesor.push(materie.denumire);
           });
 
-          return { ...profesor, materii: materiiProfesor.join(", ") };
+          return {
+            ...profesor,
+            materii:
+              materiiProfesor.length > 0
+                ? materiiProfesor.join(", ")
+                : "Fara materii",
+          };
         })}
         loading={loading}
       />

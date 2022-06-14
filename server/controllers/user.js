@@ -29,6 +29,7 @@ const controller = {
     })
       .then((findUser) => {
         if (findUser) {
+          err = true;
           throw new Error("User deja existent!");
         }
       })
@@ -46,7 +47,7 @@ const controller = {
         })
         .catch((error) => {
           console.error(error);
-          res.status(500).send({ message: "Eroare la inserarea userului!!" });
+          res.status(500).send({ message: "Eroare la inserarea userului!" });
         });
     }
   },

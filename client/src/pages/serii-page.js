@@ -3,9 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import axios from "axios";
 import "./pages.scss";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import { Tooltip, Typography } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { Context } from "../components/contexts/user-context";
 import CustomGrid from "../components/custom-grid";
 import BasicModalWithoutButtons from "../components/basic-modal/basic-modal-without-buttons";
@@ -13,9 +11,10 @@ import { BACKEND_URL } from "../config";
 import Message from "../components/message/message";
 import ActiuniColumn from "../components/actiuni-column";
 import SeriiForm from "../components/forms/serii-form";
+import Header from "../components/administrare-child-page/header";
 
 const SeriiPage = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const user = useContext(Context);
   const isMobile = useMediaQuery({ query: `(max-width: 560px)` });
   const { isLoggedIn } = user;
@@ -145,16 +144,11 @@ const SeriiPage = () => {
 
   return (
     <div className="pages-layout">
-      <Typography variant="h3">Serii</Typography>
-      <div className="pages-buttons">
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleOpenAddSerieModal}
-        >
-          Adauga serie
-        </Button>
-      </div>
+      <Header
+        pageTitleText="Serii"
+        addButtonText="Adauga serie"
+        handleOpenAddModal={handleOpenAddSerieModal}
+      />
       <CustomGrid
         columns={columns}
         rows={serii.map((serie) => {
@@ -163,7 +157,10 @@ const SeriiPage = () => {
             grupeSerie.push(grupa.numar);
           });
 
-          return { ...serie, grupe: grupeSerie.join(", ") };
+          return {
+            ...serie,
+            grupe: grupeSerie.length > 0 ? grupeSerie.join(", ") : "Fara grupe",
+          };
         })}
         loading={loading}
       />

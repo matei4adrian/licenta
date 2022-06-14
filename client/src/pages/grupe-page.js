@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "./pages.scss";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import { Tooltip, Typography } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { Context } from "../components/contexts/user-context";
 import CustomGrid from "../components/custom-grid";
 import BasicModalWithoutButtons from "../components/basic-modal/basic-modal-without-buttons";
@@ -12,10 +10,10 @@ import { BACKEND_URL } from "../config";
 import Message from "../components/message/message";
 import ActiuniColumn from "../components/actiuni-column";
 import GrupeForm from "../components/forms/grupe-form";
-// import SeriiForm from "../components/forms/serii-form";
+import Header from "../components/administrare-child-page/header";
 
 const GrupePage = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const user = useContext(Context);
   const { isLoggedIn } = user;
   const [grupe, setGrupe] = useState([]);
@@ -94,7 +92,6 @@ const GrupePage = () => {
     if (errorMessage) {
       setErrorMessage("");
     }
-    console.log(values);
     await axios
       .post(
         BACKEND_URL + `/api/grupe/serii/${values.serieId}`,
@@ -138,16 +135,11 @@ const GrupePage = () => {
 
   return (
     <div className="pages-layout">
-      <Typography variant="h3">Grupe</Typography>
-      <div className="pages-buttons">
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleOpenAddGrupaModal}
-        >
-          Adauga grupa
-        </Button>
-      </div>
+      <Header
+        pageTitleText="Grupe"
+        addButtonText="Adauga grupa"
+        handleOpenAddModal={handleOpenAddGrupaModal}
+      />
       <CustomGrid
         columns={columns}
         rows={grupe.map((grupa) => {

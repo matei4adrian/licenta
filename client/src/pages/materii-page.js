@@ -3,9 +3,7 @@ import axios from "axios";
 import { useMediaQuery } from "react-responsive";
 import "./pages.scss";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import { Tooltip, Typography } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { Context } from "../components/contexts/user-context";
 import CustomGrid from "../components/custom-grid";
 import BasicModalWithoutButtons from "../components/basic-modal/basic-modal-without-buttons";
@@ -13,9 +11,10 @@ import MateriiForm from "../components/forms/materii-form";
 import { BACKEND_URL } from "../config";
 import Message from "../components/message/message";
 import ActiuniColumn from "../components/actiuni-column";
+import Header from "../components/administrare-child-page/header";
 
 const MateriiPage = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const user = useContext(Context);
   const { isLoggedIn } = user;
   const [materii, setMaterii] = useState([]);
@@ -146,16 +145,11 @@ const MateriiPage = () => {
 
   return (
     <div className="pages-layout">
-      <Typography variant="h3">Materii</Typography>
-      <div className="pages-buttons">
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleOpenAddMaterieModal}
-        >
-          Adauga materie
-        </Button>
-      </div>
+      <Header
+        pageTitleText="Materii"
+        addButtonText="Adauga materie"
+        handleOpenAddModal={handleOpenAddMaterieModal}
+      />
       <CustomGrid columns={columns} rows={materii} loading={loading} />
       <BasicModalWithoutButtons
         open={openAddMaterieModal}

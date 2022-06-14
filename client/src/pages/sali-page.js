@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "./pages.scss";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import { Tooltip, Typography } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { Context } from "../components/contexts/user-context";
 import CustomGrid from "../components/custom-grid";
 import BasicModalWithoutButtons from "../components/basic-modal/basic-modal-without-buttons";
@@ -12,9 +10,10 @@ import { BACKEND_URL } from "../config";
 import Message from "../components/message/message";
 import SaliForm from "../components/forms/sali-form";
 import ActiuniColumn from "../components/actiuni-column";
+import Header from "../components/administrare-child-page/header";
 
 const SaliPage = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const user = useContext(Context);
   const { isLoggedIn } = user;
   const [sali, setSali] = useState([]);
@@ -121,16 +120,11 @@ const SaliPage = () => {
 
   return (
     <div className="pages-layout">
-      <Typography variant="h3">Sali</Typography>
-      <div className="pages-buttons">
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleOpenAddSalaModal}
-        >
-          Adauga sala
-        </Button>
-      </div>
+      <Header
+        pageTitleText="Sali"
+        addButtonText="Adauga sala"
+        handleOpenAddModal={handleOpenAddSalaModal}
+      />
       <CustomGrid columns={columns} rows={sali} loading={loading} />
       <BasicModalWithoutButtons
         open={openAddSalaModal}

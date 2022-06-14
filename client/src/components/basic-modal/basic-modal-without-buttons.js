@@ -2,7 +2,14 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Paper, Typography } from "@mui/material";
 import Modal from "@mui/material/Modal";
+import { styled } from "@mui/material/styles";
 import "./basic-modal-form-without-buttons.scss";
+
+const StyledModal = styled(Modal)`
+  .MuiBackdrop-root {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+`;
 
 const BasicModalWithoutButtons = ({
   open,
@@ -12,7 +19,7 @@ const BasicModalWithoutButtons = ({
   content,
 }) => {
   return (
-    <Modal open={open} onClose={onClose}>
+    <StyledModal open={open} onClose={onClose}>
       <Box className="basic-modal-wrapper">
         <Paper style={{ padding: "5% 0" }}>
           <Typography variant="h3" component="h2" style={{ padding: "0 2%" }}>
@@ -24,7 +31,7 @@ const BasicModalWithoutButtons = ({
           {content}
         </Paper>
       </Box>
-    </Modal>
+    </StyledModal>
   );
 };
 

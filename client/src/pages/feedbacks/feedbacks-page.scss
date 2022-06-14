@@ -1,0 +1,18 @@
+.view-feedbacks-layout {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    padding: 0 10%;
+    font-size: 20px;
+}
+
+.view-feedback-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.view-feedbacks-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5%;
+}

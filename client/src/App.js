@@ -15,6 +15,8 @@ import ProfesoriPage from "./pages/profesori-page";
 import SaliPage from "./pages/sali-page";
 import SeriiPage from "./pages/serii-page";
 import GrupePage from "./pages/grupe-page";
+import FeedbacksPage from "./pages/feedbacks/feedbacks-page";
+import AdministratoriPage from "./pages/administratori-page";
 
 const getDesignTokens = (mode) => ({
   typography: {
@@ -77,6 +79,8 @@ function App() {
       { path: "/sali", element: <SaliPage /> },
       { path: "/serii", element: <SeriiPage /> },
       { path: "/grupe", element: <GrupePage /> },
+      { path: "/feedbacks", element: <FeedbacksPage /> },
+      { path: "/administratori", element: <AdministratoriPage /> },
     ]);
 
   return (

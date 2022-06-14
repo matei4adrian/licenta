@@ -39,14 +39,20 @@ const AccountMenu = () => {
         <IconButton
           onClick={handleClick}
           size="small"
-          sx={{ ml: 2 }}
+          sx={{ ml: 2, padding: "10px" }}
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 36, height: 36 }}>
-            {nume[0]}
+          <Avatar
+            sx={{
+              width: 28,
+              height: 28,
+              fontSize: "0.9rem",
+            }}
+          >
             {prenume[0]}
+            {nume[0]}
           </Avatar>
         </IconButton>
       </Tooltip>
