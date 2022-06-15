@@ -70,12 +70,30 @@ const AdministratoriPage = () => {
     setOpenAddAdministratorModal(false);
   };
 
-  const handleAddAdministrator = async (values) => {
+  const handleAddAdministratorByEmail = async (values) => {
     if (errorMessage) {
       setErrorMessage("");
     }
     await axios
       .post(BACKEND_URL + `/api/users/`, values, {
+        withCredentials: true,
+      })
+      .then(() => {
+        handleCloseAddAdministratorModal();
+        getUsers();
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrorMessage(err.response.data.message);
+      });
+  };
+
+  const handleAddAdministratorByUsers = async (values) => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+    await axios
+      .post(BACKEND_URL + "/api/users/importFromCSV", values, {
         withCredentials: true,
       })
       .then(() => {
@@ -118,9 +136,11 @@ const AdministratoriPage = () => {
         open={openAddAdministratorModal}
         onClose={handleCloseAddAdministratorModal}
         title="Adauga administrator"
+        subTitle="Completati campul"
         content={
           <AdministratoriForm
-            onSubmit={handleAddAdministrator}
+            onSubmitEmail={handleAddAdministratorByEmail}
+            onSubmitUsers={handleAddAdministratorByUsers}
             onClose={handleCloseAddAdministratorModal}
             submitText="Adauga"
           />
