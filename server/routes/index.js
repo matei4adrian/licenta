@@ -12,6 +12,7 @@ const salaRouter = require("./sala");
 const materieRouter = require("./materie");
 const profesorRouter = require("./profesor");
 const activitateRouter = require("./activitate");
+const statisticiRouter = require("./statistici");
 
 router.use("/users", userRouter);
 router.use("/auth", authRouter);
@@ -24,6 +25,7 @@ router.use("/sali", salaRouter);
 router.use("/materii", materieRouter);
 router.use("/profesori", profesorRouter);
 router.use("/facultati", activitateRouter);
+router.use("/statistici", statisticiRouter);
 router.use("/", otherRouter);
 
 module.exports = router;

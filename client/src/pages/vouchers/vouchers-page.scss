@@ -30,6 +30,20 @@
     align-items: center;
 }
 
+@media (max-width: 1475px) {
+    .voucher-cards {    
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}   
+
 @media (max-width: 1100px) {
-    .voucher-cards {  grid-template-columns: auto;}
+    .voucher-cards { 
+        grid-template-columns: 1fr 1fr 
+    }
+}   
+
+@media (max-width: 775px) {
+    .voucher-cards { 
+        grid-template-columns: auto; 
+    }
 }   

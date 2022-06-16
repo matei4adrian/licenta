@@ -12,17 +12,17 @@
     justify-items: center;
     align-items: center;
     grid-gap: 20px 60px;
-    padding: 3%;
 }
 
 .administrare-title {  
     text-align: center;
-    margin-top: 5% !important;
+    margin-bottom: 5% !important;
 }
 
 .administrare-layout {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 1100px) {

@@ -57,7 +57,7 @@ const Navbar = () => {
   return (
     <AppBar position="static">
       <CssBaseline />
-      <Toolbar>
+      <Toolbar style={{ height: "100%" }}>
         <Typography variant="h4" className="navbar-logo">
           <Link to="/orar" className="navbar-title-link">
             Orar App

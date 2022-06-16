@@ -13,7 +13,7 @@ const options = [
   { id: 5, to: "/grupe", denumire: "Grupe" },
   { id: 6, to: "/feedbacks", denumire: "Gestioneaza feedback-uri" },
   { id: 7, to: "/administratori", denumire: "Gestioneaza administratori" },
-  { id: 8, to: "https://google.com", denumire: "Statistici" },
+  { id: 8, to: "/statistici", denumire: "Statistici" },
 ];
 
 const AdministrarePage = () => {

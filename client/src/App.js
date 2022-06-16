@@ -17,6 +17,7 @@ import SeriiPage from "./pages/serii-page";
 import GrupePage from "./pages/grupe-page";
 import FeedbacksPage from "./pages/feedbacks/feedbacks-page";
 import AdministratoriPage from "./pages/administratori-page";
+import StatisticiPage from "./pages/statistici-page/statistici-page";
 
 const getDesignTokens = (mode) => ({
   typography: {
@@ -81,6 +82,7 @@ function App() {
       { path: "/grupe", element: <GrupePage /> },
       { path: "/feedbacks", element: <FeedbacksPage /> },
       { path: "/administratori", element: <AdministratoriPage /> },
+      { path: "/statistici", element: <StatisticiPage /> },
     ]);
 
   return (

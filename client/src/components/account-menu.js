@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useTheme } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,6 +11,7 @@ import { Context } from "./contexts/user-context";
 import { BACKEND_URL } from "../config";
 
 const AccountMenu = () => {
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const user = useContext(Context);
@@ -49,6 +51,9 @@ const AccountMenu = () => {
               width: 28,
               height: 28,
               fontSize: "0.9rem",
+              ...(theme.palette.mode === "dark"
+                ? { color: "white" }
+                : { color: "black" }),
             }}
           >
             {prenume[0]}
@@ -101,7 +106,6 @@ const AccountMenu = () => {
           {username}
           <br /> {email}
         </p>
-
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />

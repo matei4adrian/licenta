@@ -9,6 +9,7 @@ const sala = require("./sala");
 const materie = require("./materie");
 const profesor = require("./profesor");
 const activitate = require("./activitate");
+const statistici = require("./statistici");
 
 const controllers = {
   other,
@@ -22,6 +23,7 @@ const controllers = {
   materie,
   profesor,
   activitate,
+  statistici,
 };
 
 module.exports = controllers;
