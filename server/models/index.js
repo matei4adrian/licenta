@@ -45,13 +45,16 @@ Activitate.belongsTo(Profesor);
 
 Activitate.belongsToMany(
   Grupa,
-  { through: "Activitate_Grupa" },
+  { through: "Activitate_Grupa", foreignKey: "activitateId" },
   {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   }
 );
-Grupa.belongsToMany(Activitate, { through: "Activitate_Grupa" });
+Grupa.belongsToMany(Activitate, {
+  through: "Activitate_Grupa",
+  foreignKey: "grupaId",
+});
 
 Materie.belongsToMany(Profesor, {
   through: "Materie_Profesor",

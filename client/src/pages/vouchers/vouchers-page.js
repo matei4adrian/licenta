@@ -110,7 +110,7 @@ const VoucherPage = () => {
             </div>
           ) : (
             <Typography variant="h3" className="no-voucher-added">
-              Niciun voucher nu a fost adaugat!
+              Niciun voucher nu a fost adaugat
             </Typography>
           )}
         </div>

@@ -44,6 +44,9 @@ const SeriiForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
               }
               onBlur={props.handleBlur}
               onChange={props.handleChange}
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
               type="text"
               value={props.values.litera}
               required

@@ -1,0 +1,17 @@
+.filter-form {
+   width: 50%;
+   border: 1px solid grey;
+   padding: 100px 10%;
+}
+
+@media (max-width: 800px) {
+    .filter-form {
+        width: 75%;
+    }
+} 
+
+@media (max-width: 500px) {
+    .filter-form {
+        width: 300px;
+    }
+}

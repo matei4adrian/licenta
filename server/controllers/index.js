@@ -10,6 +10,7 @@ const materie = require("./materie");
 const profesor = require("./profesor");
 const activitate = require("./activitate");
 const statistici = require("./statistici");
+const options = require("./options");
 
 const controllers = {
   other,
@@ -24,6 +25,7 @@ const controllers = {
   profesor,
   activitate,
   statistici,
+  options,
 };
 
 module.exports = controllers;

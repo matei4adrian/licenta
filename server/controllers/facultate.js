@@ -42,7 +42,6 @@ const controller = {
       }
     }
   },
-
   update: async (req, res) => {
     if (!req.body) {
       res.status(400).send({ message: "Body invalid!" });
@@ -56,19 +55,36 @@ const controller = {
       const facultateExistenta = await FacultateDB.findOne({
         where: { denumire: req.body.denumire },
       });
-      if (!facultateExistenta) {
+      if (
+        !facultateExistenta ||
+        facultateExistenta.id === parseInt(req.params.facultateId)
+      ) {
         FacultateDB.findByPk(req.params.facultateId)
           .then(async (facultate) => {
             if (facultate) {
               const initialPath = facultate.fotografie;
-              Object.assign(facultate, {
-                denumire: req.body.denumire,
-                fotografie: req.file.filename,
+              const initialEntitiesWithThisPhoto = await FacultateDB.findAll({
+                where: {
+                  fotografie: initialPath,
+                },
               });
+              const updated = {
+                denumire: req.body.denumire,
+              };
+              if (req.file) {
+                updated["fotografie"] = req.file.filename;
+              }
+              Object.assign(facultate, updated);
               await facultate.save();
-              fs.unlinkSync(
-                `${__basedir}/resources/static/assets/uploads/${initialPath}`
-              );
+              if (
+                req.file &&
+                req.file.filename !== initialPath &&
+                initialEntitiesWithThisPhoto.length === 1
+              ) {
+                fs.unlinkSync(
+                  `${__basedir}/resources/static/assets/uploads/${initialPath}`
+                );
+              }
               res.status(202).send({ message: "Facultate actualizata!" });
             } else {
               res.status(404).json({ message: "Facultatea nu exista!" });
@@ -88,10 +104,17 @@ const controller = {
       .then(async (facultate) => {
         if (facultate) {
           const initialPath = facultate.fotografie;
+          const initialEntitiesWithThisPhoto = await FacultateDB.findAll({
+            where: {
+              fotografie: initialPath,
+            },
+          });
           await facultate.destroy();
-          fs.unlinkSync(
-            `${__basedir}/resources/static/assets/uploads/${initialPath}`
-          );
+          if (initialEntitiesWithThisPhoto.length === 1) {
+            fs.unlinkSync(
+              `${__basedir}/resources/static/assets/uploads/${initialPath}`
+            );
+          }
           res.status(202).send({ message: "Facultate stearsa!" });
         } else {
           res.status(404).json({ message: "Facultatea nu exista!" });

@@ -13,6 +13,7 @@
 //profesor ul ales
 //materie care va da si titlul
 
+const Sequelize = require("sequelize");
 const ActivitateDB = require("../models").Activitate;
 const GrupaDB = require("../models").Grupa;
 const MaterieDB = require("../models").Materie;
@@ -54,8 +55,21 @@ const controller = {
       where,
       include: [MaterieDB, GrupaDB, ProfesorDB, SalaDB],
     })
-      .then((activitati) => {
-        res.status(200).send(activitati);
+      .then(async (activitati) => {
+        const idActivitati = [];
+        for (const activitate of activitati) {
+          idActivitati.push(activitate.id);
+        }
+        const activitatiComplete = await ActivitateDB.findAll({
+          where: {
+            id: {
+              [Sequelize.Op.in]: idActivitati,
+            },
+          },
+          include: [MaterieDB, GrupaDB, ProfesorDB, SalaDB],
+        });
+
+        res.status(200).send(activitatiComplete);
       })
       .catch((err) => {
         console.error(err);

@@ -66,7 +66,11 @@ const controller = {
             }
             Object.assign(voucher, updated);
             await voucher.save();
-            if (req.file && initialEntitiesWithThisPhoto.length === 1) {
+            if (
+              req.file &&
+              req.file.filename !== initialPath &&
+              initialEntitiesWithThisPhoto.length === 1
+            ) {
               fs.unlinkSync(
                 `${__basedir}/resources/static/assets/uploads/${initialPath}`
               );

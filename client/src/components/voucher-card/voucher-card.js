@@ -121,7 +121,7 @@ const VoucherCard = (props) => {
             </div>
           )}
         </div>
-        {descriere.length > 150 && (
+        {descriere.length > 140 && (
           <Button
             variant="outlined"
             endIcon={<NavigateNextIcon />}

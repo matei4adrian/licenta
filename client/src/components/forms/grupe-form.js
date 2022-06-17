@@ -25,7 +25,7 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
     serieId: Yup.object().nullable().required("Selectati seria!"),
   });
   const [serii, setSerii] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
+  const [openAutocomplete, setOpenAutocomplete] = useState(false);
 
   const getSerii = async () => {
     await axios
@@ -83,6 +83,9 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
               }
               onBlur={props.handleBlur}
               onChange={props.handleChange}
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
               type="text"
               value={props.values.numar}
               required
@@ -93,13 +96,13 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
             <Autocomplete
               id="serieId"
               name="serieId"
-              open={openModal}
+              open={openAutocomplete}
               onOpen={(event) => {
-                setOpenModal(true);
+                setOpenAutocomplete(true);
                 event.stopPropagation();
               }}
               onClose={() => {
-                setOpenModal(false);
+                setOpenAutocomplete(false);
               }}
               options={selectOptions}
               getOptionLabel={(option) => option.name}

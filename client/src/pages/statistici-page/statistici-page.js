@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./statistici-page.scss";
 import {
   Chart as ChartJS,
@@ -15,6 +15,8 @@ import { CircularProgress } from "@mui/material";
 import Header from "../../components/administrare-child-page/header";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { useNavigate } from "react-router-dom";
+import { Context } from "../../components/contexts/user-context";
 
 ChartJS.register(
   ArcElement,
@@ -40,6 +42,9 @@ export const options = {
 };
 
 const StatisticiPage = () => {
+  const navigate = useNavigate();
+  const user = useContext(Context);
+  const { isLoggedIn } = user;
   const [statistici, setStatistici] = useState({
     usersStats: {
       activeUsers: 0,
@@ -73,6 +78,9 @@ const StatisticiPage = () => {
   };
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("../administrare");
+    }
     getStatistici();
   }, []);
 

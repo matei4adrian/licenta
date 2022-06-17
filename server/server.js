@@ -38,8 +38,6 @@ app.use(
   express.static(path.join(__dirname, "resources/static/assets/uploads"))
 );
 
-// app.use(fileUpload());
-
 app.use("/api", router);
 
 let serverPort = 8080;

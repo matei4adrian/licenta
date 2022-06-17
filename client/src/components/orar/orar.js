@@ -58,42 +58,6 @@ const StyledAppointmentsAppointmentContent = styled(
   },
 }));
 
-const appointments = [
-  {
-    id: 0,
-    title: "Algebra",
-    startDate: new Date(2022, 3, 18, 9, 15),
-    endDate: new Date(2022, 3, 18, 10, 45),
-    type: "Seminar",
-    sala: "1022",
-    profesor: "Costel",
-    grupa: "1023, 1024",
-    rRule: "FREQ=WEEKLY;BYDAY=MO", //poa sa fie si din 2 in 2 sapt
-  },
-  {
-    id: 1,
-    title: "ATP",
-    startDate: new Date(2022, 3, 18, 9, 15),
-    endDate: new Date(2022, 3, 18, 10, 45),
-    type: "Curs",
-    sala: "1022",
-    profesor: "Costel",
-    grupa: "1023, 1024",
-    rRule: "FREQ=WEEKLY;BYDAY=MO",
-  },
-  {
-    id: 2,
-    title: "Bazele programarii",
-    startDate: new Date(2022, 3, 18, 12, 45),
-    endDate: new Date(2022, 3, 18, 14, 15),
-    type: "Seminar",
-    sala: "1022",
-    profesor: "Vasile",
-    grupa: "1023",
-    rRule: "FREQ=WEEKLY;BYDAY=TU",
-  },
-];
-
 const Appointment = ({ ...restProps }) => {
   return (
     <StyledAppointmentsAppointment
@@ -175,7 +139,35 @@ const Content = ({ children, appointmentData, ...restProps }) => (
   </AppointmentTooltip.Content>
 );
 
-const Orar = () => {
+const Orar = ({ activitati }) => {
+  console.log(activitati);
+  const appointments = activitati.map((activitate) => {
+    return {
+      id: activitate.id,
+      title: activitate.materie.denumire,
+      startDate: activitate.dataInceput,
+      endDate: activitate.dataSfarsit,
+      type: activitate.tipActivitate,
+      sala: activitate.sala.numar,
+      profesor: `${activitate.profesor.nume} ${activitate.profesor.prenume}`,
+      grupa: activitate.grupas.map((grupa) => grupa.numar).join(", "),
+      rRule: activitate.rRule, //poa sa fie si din 2 in 2 sapt
+    };
+  });
+  // const appointments = [
+  //   {
+  //     id: 0,
+  //     title: "Algebra",
+  //     startDate: new Date(2022, 3, 18, 18, 0),
+  //     endDate: new Date(2022, 3, 18, 19, 30),
+  //     type: "Seminar",
+  //     sala: "1022",
+  //     profesor: "Costel",
+  //     grupa: "1023, 1024",
+  //     rRule: "FREQ=WEEKLY;BYDAY=MO", //poa sa fie si din 2 in 2 sapt
+  //   },
+  // ];
+
   const [data, setData] = useState(appointments);
 
   const Header = ({ children, appointmentData, ...restProps }) => {

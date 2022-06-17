@@ -1,10 +1,13 @@
-.facultate-card-content {
-    display: flex;
-    flex-direction: column;
+.facultate-card {
+    width: 300px;
     margin: 10%;
 }
 
-.facultate-card-button {
-    justify-content: flex-end;
-    margin-bottom: 2%
+.facultate-card:hover {
+    transform: scale(1.05);
+}
+
+.facultate-card-content {
+    display: flex;
+    flex-direction: column;
 }

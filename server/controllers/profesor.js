@@ -30,8 +30,6 @@ const controller = {
     } else {
       const profesorExistent = await ProfesorDB.findOne({
         where: {
-          nume: req.body.nume,
-          prenume: req.body.prenume,
           email: req.body.email,
         },
       });
@@ -71,8 +69,6 @@ const controller = {
         req.body.nume && req.body.prenume && req.body.email
           ? await ProfesorDB.findOne({
               where: {
-                nume: req.body.nume,
-                prenume: req.body.prenume,
                 email: req.body.email,
               },
             })

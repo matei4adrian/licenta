@@ -48,6 +48,9 @@ const ProfesoriForm = ({ onClose, onSubmit, profesor, submitText }) => {
               }
               onBlur={props.handleBlur}
               onChange={props.handleChange}
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
               type="text"
               value={props.values.nume}
               required
@@ -67,6 +70,9 @@ const ProfesoriForm = ({ onClose, onSubmit, profesor, submitText }) => {
               }
               onBlur={props.handleBlur}
               onChange={props.handleChange}
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
               type="text"
               value={props.values.prenume}
               required
@@ -86,6 +92,9 @@ const ProfesoriForm = ({ onClose, onSubmit, profesor, submitText }) => {
               }
               onBlur={props.handleBlur}
               onChange={props.handleChange}
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
               type="text"
               value={props.values.email}
               required

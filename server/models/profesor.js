@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       nume: { type: DataTypes.STRING, allowNull: false },
       prenume: { type: DataTypes.STRING, allowNull: false },
-      email: { type: DataTypes.STRING, allowNull: false },
+      email: { type: DataTypes.STRING, allowNull: false, unique: true },
     },
     {
       freezeTableName: true,
