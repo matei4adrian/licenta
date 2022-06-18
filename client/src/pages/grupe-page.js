@@ -143,7 +143,10 @@ const GrupePage = () => {
       <CustomGrid
         columns={columns}
         rows={grupe.map((grupa) => {
-          return { ...grupa, seria: grupa.serie.litera };
+          return {
+            ...grupa,
+            seria: `${grupa.serie.litera} - ${grupa.serie.limba}, ${grupa.serie.facultate.denumire}`,
+          };
         })}
         loading={loading}
       />

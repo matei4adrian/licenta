@@ -9,7 +9,7 @@ import ReportIcon from "@mui/icons-material/Report";
 
 const StyledDialog = styled(Dialog)`
   .MuiBackdrop-root {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
   }
 `;
 

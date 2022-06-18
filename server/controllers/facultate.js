@@ -49,8 +49,6 @@ const controller = {
       res.status(400).send({ message: "Facultate invalida!" });
     } else if (req.body.denumire.length < 3) {
       res.status(400).send({ message: "Facultate invalida!" });
-    } else if (req.file === undefined) {
-      return res.send(`Trebuie sa selectezi o fotografie!`);
     } else {
       const facultateExistenta = await FacultateDB.findOne({
         where: { denumire: req.body.denumire },
@@ -68,6 +66,7 @@ const controller = {
                   fotografie: initialPath,
                 },
               });
+
               const updated = {
                 denumire: req.body.denumire,
               };

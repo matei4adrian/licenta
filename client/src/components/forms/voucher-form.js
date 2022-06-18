@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import "./voucher-form.scss";
+import "./card-form.scss";
 import { TextField, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -37,18 +37,14 @@ const VoucherForm = ({ onClose, onSubmit, voucher, submitText }) => {
   });
 
   return (
-    <Grid className="grid-voucher">
+    <Grid className="grid-card">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {(props) => (
-          <Form
-            noValidate
-            onSubmit={props.handleSubmit}
-            className="voucher-form"
-          >
+          <Form noValidate onSubmit={props.handleSubmit} className="card-form">
             <Field
               as={TextField}
               name="compania"
@@ -123,7 +119,7 @@ const VoucherForm = ({ onClose, onSubmit, voucher, submitText }) => {
                 <div className="error-message">&nbsp;</div>
               )}
             </div>
-            <div className="voucher-form-buttons">
+            <div className="card-form-buttons">
               <Button onClick={onClose}>Inchide</Button>
               <Button
                 variant="contained"

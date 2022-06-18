@@ -1,15 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
-import "./vouchers-page.scss";
+import "./cards-page.scss";
 import { Typography } from "@mui/material";
 import axios from "axios";
-import { Context } from "../../components/contexts/user-context";
+import { Context } from "../components/contexts/user-context";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/material/CircularProgress";
-import VoucherCard from "../../components/voucher-card/voucher-card";
-import { BACKEND_URL } from "../../config";
-import BasicModalWithoutButtons from "../../components/basic-modal/basic-modal-without-buttons";
-import VoucherForm from "../../components/forms/voucher-form";
+import VoucherCard from "../components/voucher-card/voucher-card";
+import { BACKEND_URL } from "../config";
+import BasicModalWithoutButtons from "../components/basic-modal/basic-modal-without-buttons";
+import VoucherForm from "../components/forms/voucher-form";
 
 const VoucherPage = () => {
   const user = useContext(Context);
@@ -68,13 +68,13 @@ const VoucherPage = () => {
   return (
     <div>
       {loading ? (
-        <div className="loading-vouchers-page">
+        <div className="loading-cards-page">
           <CircularProgress />
         </div>
       ) : (
-        <div className="voucher-layout">
+        <div className="cards-layout">
           {user.isLoggedIn && (
-            <div className="voucher-page-buttons-container">
+            <div className="cards-page-buttons-container">
               <Button
                 variant="contained"
                 startIcon={<AddIcon />}
@@ -98,10 +98,9 @@ const VoucherPage = () => {
             </div>
           )}
           {vouchers.length !== 0 ? (
-            <div className="voucher-cards">
+            <div className="cards">
               {vouchers.map((voucher) => (
                 <VoucherCard
-                  className="voucher-card"
                   voucher={voucher}
                   getVouchers={getVouchers}
                   key={voucher.id}
@@ -109,7 +108,7 @@ const VoucherPage = () => {
               ))}
             </div>
           ) : (
-            <Typography variant="h3" className="no-voucher-added">
+            <Typography variant="h3" className="no-card-added">
               Niciun voucher nu a fost adaugat
             </Typography>
           )}

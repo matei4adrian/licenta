@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import { EditingState } from "@devexpress/dx-react-scheduler";
+// import { EditingState } from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
   WeekView,
   Appointments,
   AppointmentTooltip,
-  ConfirmationDialog,
-  EditRecurrenceMenu,
+  // ConfirmationDialog,
+  // EditRecurrenceMenu,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ErrorIcon from "@mui/icons-material/Error";
 import EditIcon from "@mui/icons-material/Edit";
 import PersonIcon from "@mui/icons-material/Person";
@@ -19,6 +20,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import Grid from "@mui/material/Grid";
 import ClassIcon from "@mui/icons-material/Class";
 import "./orar.scss";
+import { Context } from "../contexts/user-context";
 
 const PREFIX = "Orar";
 
@@ -124,6 +126,41 @@ const withGrid = (Icon) => {
   );
 };
 
+const Header = ({ children, appointmentData, ...restProps }) => {
+  const user = useContext(Context);
+  const { isLoggedIn } = user;
+
+  return (
+    <AppointmentTooltip.Header {...restProps}>
+      {isLoggedIn && (
+        <>
+          <IconButton
+            aria-label="add feedback"
+            size="large"
+            onClick={() => alert(JSON.stringify(appointmentData))}
+          >
+            <DeleteIcon color="error" />
+          </IconButton>
+          <IconButton
+            aria-label="edit appointment"
+            size="large"
+            onClick={() => alert(JSON.stringify(appointmentData))}
+          >
+            <EditIcon />
+          </IconButton>
+        </>
+      )}
+      <IconButton
+        aria-label="add feedback"
+        size="large"
+        onClick={() => alert(JSON.stringify(appointmentData))}
+      >
+        <ErrorIcon />
+      </IconButton>
+    </AppointmentTooltip.Header>
+  );
+};
+
 const Content = ({ children, appointmentData, ...restProps }) => (
   <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
     <Grid container alignItems="center">
@@ -140,8 +177,7 @@ const Content = ({ children, appointmentData, ...restProps }) => (
 );
 
 const Orar = ({ activitati }) => {
-  console.log(activitati);
-  const appointments = activitati.map((activitate) => {
+  const data = activitati.map((activitate) => {
     return {
       id: activitate.id,
       title: activitate.materie.denumire,
@@ -168,50 +204,27 @@ const Orar = ({ activitati }) => {
   //   },
   // ];
 
-  const [data, setData] = useState(appointments);
-
-  const Header = ({ children, appointmentData, ...restProps }) => {
-    return (
-      <AppointmentTooltip.Header {...restProps}>
-        <IconButton
-          aria-label="edit appointment"
-          size="large"
-          onClick={() => alert(JSON.stringify(appointmentData))}
-        >
-          <EditIcon />
-        </IconButton>
-        <IconButton
-          aria-label="add feedback"
-          size="large"
-          onClick={() => alert(JSON.stringify(appointmentData))}
-        >
-          <ErrorIcon />
-        </IconButton>
-      </AppointmentTooltip.Header>
-    );
-  };
-
-  const commitChanges = ({ added, changed, deleted }) => {
-    setData((state) => {
-      let { data } = state;
-      if (added) {
-        const startingAddedId =
-          data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
-      }
-      if (changed) {
-        data = data.map((appointment) =>
-          changed[appointment.id]
-            ? { ...appointment, ...changed[appointment.id] }
-            : appointment
-        );
-      }
-      if (deleted !== undefined) {
-        data = data.filter((appointment) => appointment.id !== deleted);
-      }
-      return { data };
-    });
-  };
+  // const commitChanges = ({ added, changed, deleted }) => {
+  //   setData((state) => {
+  //     let { data } = state;
+  //     if (added) {
+  //       const startingAddedId =
+  //         data.length > 0 ? data[data.length - 1].id + 1 : 0;
+  //       data = [...data, { id: startingAddedId, ...added }];
+  //     }
+  //     if (changed) {
+  //       data = data.map((appointment) =>
+  //         changed[appointment.id]
+  //           ? { ...appointment, ...changed[appointment.id] }
+  //           : appointment
+  //       );
+  //     }
+  //     if (deleted !== undefined) {
+  //       data = data.filter((appointment) => appointment.id !== deleted);
+  //     }
+  //     return { data };
+  //   });
+  // };
 
   return (
     <Paper className="orar-paper">

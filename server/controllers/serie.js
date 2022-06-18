@@ -1,9 +1,10 @@
 const SerieDB = require("../models").Serie;
 const GrupaDB = require("../models").Grupa;
+const FacultateDB = require("../models").Facultate;
 
 const controller = {
   getAll: async (req, res) => {
-    SerieDB.findAll({ include: [GrupaDB] })
+    SerieDB.findAll({ include: [GrupaDB, FacultateDB] })
       .then((serii) => {
         res.status(200).send(serii);
       })
@@ -13,7 +14,7 @@ const controller = {
       });
   },
   add: async (req, res) => {
-    if (req.body.litera && req.body.limba) {
+    if (req.body.litera && req.body.limba && req.body.facultateId) {
       if (req.body.litera.length !== 1) {
         res.status(400).send({ message: "Introduceti doar litera seriei!" });
       } else if (req.body.limba !== "romana" && req.body.limba !== "engleza") {
@@ -24,6 +25,7 @@ const controller = {
         const serie = await SerieDB.findOne({
           where: {
             litera: req.body.litera,
+            facultateId: req.body.facultateId,
           },
         });
         if (!serie) {
@@ -36,7 +38,9 @@ const controller = {
               res.status(500).send(error);
             });
         } else {
-          res.status(400).send({ message: "Seria exista deja!" });
+          res
+            .status(400)
+            .send({ message: "Seria exista deja pentru facultatea aceasta!" });
         }
       }
     } else {
@@ -55,13 +59,15 @@ const controller = {
         message: "Seria poate fi doar la limba romana sau engleza!",
       });
     } else {
-      const serie = req.body.litera
-        ? await SerieDB.findOne({
-            where: {
-              litera: req.body.litera,
-            },
-          })
-        : null;
+      const serie =
+        req.body.litera || req.body.facultateId
+          ? await SerieDB.findOne({
+              where: {
+                litera: req.body.litera,
+                facultateId: req.body.facultateId,
+              },
+            })
+          : null;
       if (!serie || serie.id === parseInt(req.params.serieId)) {
         SerieDB.findByPk(req.params.serieId)
           .then(async (serie) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Autocomplete, Grid } from "@mui/material";
+import { Autocomplete, CircularProgress, Grid } from "@mui/material";
 import axios from "axios";
 import "./materie-to-profesor-form.scss";
 import { TextField, Button } from "@mui/material";
@@ -21,6 +21,7 @@ const MaterieToProfesorForm = ({
     materie: Yup.string().required("Selectati materia!"),
   });
   const [materii, setMaterii] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getMaterii = async () => {
     await axios
@@ -35,9 +36,9 @@ const MaterieToProfesorForm = ({
             );
             return denumiriMaterii.indexOf(materie.denumire) < 0;
           });
-
           setMaterii(materiiNepredataDeProfesor);
         }
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -71,62 +72,70 @@ const MaterieToProfesorForm = ({
 
   return (
     <Grid className="grid-materie-to-profesori">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {(props) => (
-          <Form
-            noValidate
-            onSubmit={props.handleSubmit}
-            className="materie-to-profesori-form"
-          >
-            <Autocomplete
-              id="materie"
-              name="materie"
-              options={selectOptions}
-              getOptionLabel={(option) => option.name}
-              isOptionEqualToValue={(option, value) =>
-                option.value === value.value
-              }
-              style={{ width: 300 }}
-              onBlur={props.handleBlur}
-              onChange={(event, value) => {
-                props.setFieldValue("materie", value ? value.value : "");
-              }}
-              includeInputInList
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Materia"
-                  error={Boolean(props.touched.materie && props.errors.materie)}
-                  helperText={
-                    <ErrorMessage name="materie" /> &&
-                    props.touched.materie &&
-                    props.errors.materie
-                  }
-                  required
-                />
-              )}
-            />
+      {loading ? (
+        <div>
+          <CircularProgress />
+        </div>
+      ) : (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {(props) => (
+            <Form
+              noValidate
+              onSubmit={props.handleSubmit}
+              className="materie-to-profesori-form"
+            >
+              <Autocomplete
+                id="materie"
+                name="materie"
+                options={selectOptions}
+                getOptionLabel={(option) => option.name}
+                isOptionEqualToValue={(option, value) =>
+                  option.value === value.value
+                }
+                style={{ width: 300 }}
+                onBlur={props.handleBlur}
+                onChange={(event, value) => {
+                  props.setFieldValue("materie", value ? value.value : "");
+                }}
+                includeInputInList
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Materia"
+                    error={Boolean(
+                      props.touched.materie && props.errors.materie
+                    )}
+                    helperText={
+                      <ErrorMessage name="materie" /> &&
+                      props.touched.materie &&
+                      props.errors.materie
+                    }
+                    required
+                  />
+                )}
+              />
 
-            {!Boolean(props.touched.materie && props.errors.materie) ? (
-              <div style={{ marginTop: "3px" }}></div>
-            ) : null}
-            <div className="materie-to-profesori-form-buttons">
-              <Button onClick={onClose}>Inchide</Button>
-              <Button
-                variant="contained"
-                style={{ marginLeft: "10px" }}
-                type="submit"
-              >
-                {submitText}
-              </Button>
-            </div>
-          </Form>
-        )}
-      </Formik>
+              {!Boolean(props.touched.materie && props.errors.materie) ? (
+                <div style={{ marginTop: "3px" }}></div>
+              ) : null}
+              <div className="materie-to-profesori-form-buttons">
+                <Button onClick={onClose}>Inchide</Button>
+                <Button
+                  variant="contained"
+                  style={{ marginLeft: "10px" }}
+                  type="submit"
+                >
+                  {submitText}
+                </Button>
+              </div>
+            </Form>
+          )}
+        </Formik>
+      )}
     </Grid>
   );
 };

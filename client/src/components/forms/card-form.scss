@@ -1,18 +1,18 @@
-.voucher-form {  
+.card-form {  
     display: grid;
     grid-gap: 20px;
 }
 
 @media (min-width: 600px) {
-    .voucher-form {  width: 75% }
+    .card-form {  width: 75% }
 }   
 
-.grid-voucher {
+.grid-card {
     display: flex;
     justify-content: center;
 }
 
-.voucher-form-buttons {
+.card-form-buttons {
     display: flex;
     justify-content: flex-end;
     margin-top: 5%;

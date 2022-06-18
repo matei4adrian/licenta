@@ -40,6 +40,17 @@ const SeriiPage = () => {
       ),
     },
     {
+      field: "facultate",
+      headerName: "Facultatea",
+      description: "Facultatea de care apartine seria",
+      ...(!isMobile && { flex: 1 }),
+      renderCell: (params) => (
+        <Tooltip title={params.value.toString()}>
+          <span>{params.value.toString()}</span>
+        </Tooltip>
+      ),
+    },
+    {
       field: "limba",
       headerName: "Limba",
       description: "Limba programului de licenta a seriei",
@@ -159,6 +170,7 @@ const SeriiPage = () => {
 
           return {
             ...serie,
+            facultate: serie.facultate.denumire,
             grupe: grupeSerie.length > 0 ? grupeSerie.join(", ") : "Fara grupe",
           };
         })}

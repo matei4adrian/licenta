@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./filters.scss";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
@@ -9,8 +9,11 @@ import FilterForm from "../forms/filter-form";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import { CircularProgress } from "@mui/material";
+import { Context } from "../contexts/user-context";
 
 const Filters = ({ facultateId, onSubmit }) => {
+  const user = useContext(Context);
+  const { isLoggedIn } = user;
   const [value, setValue] = useState("1");
   const [options, setOptions] = useState({});
   const [loading, setLoading] = useState(true);
@@ -59,7 +62,7 @@ const Filters = ({ facultateId, onSubmit }) => {
             <FilterForm
               onSubmit={onSubmit}
               tipFiltru="grupa"
-              options={options.grupe}
+              options={isLoggedIn ? options.allGrupeOfFacultate : options.grupe}
               label="Grupa"
             />
           </TabPanel>

@@ -11,18 +11,18 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
   const initialValues = toBeEdited
     ? {
         numar: toBeEdited.numar,
-        serieId: {
+        serie: {
           name: `${toBeEdited.serie.litera} - ${toBeEdited.serie.limba}`,
           value: toBeEdited.serieId,
         },
       }
     : {
         numar: "",
-        serieId: null,
+        serie: null,
       };
   const validationSchema = Yup.object().shape({
     numar: Yup.string().required("Completati numarul grupei!"),
-    serieId: Yup.object().nullable().required("Selectati seria!"),
+    serie: Yup.object().nullable().required("Selectati seria!"),
   });
   const [serii, setSerii] = useState([]);
   const [openAutocomplete, setOpenAutocomplete] = useState(false);
@@ -49,8 +49,9 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
   const selectOptions =
     serii && serii.length > 0
       ? serii.map((serie) => {
+          console.log(serie);
           return {
-            name: `${serie.litera} - ${serie.limba}`,
+            name: `${serie.litera} - ${serie.limba}, ${serie.facultate.denumire}`,
             value: serie.id,
           };
         })
@@ -64,7 +65,7 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
         onSubmit={(values) => {
           const grupa = {
             numar: values.numar,
-            serieId: values.serieId.value,
+            serieId: values.serie.value,
           };
           onSubmit(grupa);
         }}
@@ -94,8 +95,8 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
               <div style={{ marginTop: "3px" }}></div>
             ) : null}
             <Autocomplete
-              id="serieId"
-              name="serieId"
+              id="serie"
+              name="serie"
               open={openAutocomplete}
               onOpen={(event) => {
                 setOpenAutocomplete(true);
@@ -111,27 +112,27 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
               }
               onBlur={props.handleBlur}
               onChange={(event, value) => {
-                props.setFieldValue("serieId", value);
+                props.setFieldValue("serie", value);
               }}
-              value={props.values.serieId}
+              value={props.values.serie}
               includeInputInList
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label="Seria"
-                  name="serieId"
-                  error={Boolean(props.touched.serieId && props.errors.serieId)}
+                  name="serie"
+                  error={Boolean(props.touched.serie && props.errors.serie)}
                   onClick={(event) => event.stopPropagation()}
                   helperText={
-                    <ErrorMessage name="serieId" /> &&
-                    props.touched.serieId &&
-                    props.errors.serieId
+                    <ErrorMessage name="serie" /> &&
+                    props.touched.serie &&
+                    props.errors.serie
                   }
                   required
                 />
               )}
             />
-            {!Boolean(props.touched.serieId && props.errors.serieId) ? (
+            {!Boolean(props.touched.serie && props.errors.serie) ? (
               <div style={{ marginTop: "3px" }}></div>
             ) : null}
             <div className="form-buttons">

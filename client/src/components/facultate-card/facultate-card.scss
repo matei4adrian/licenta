@@ -1,13 +1,10 @@
-.facultate-card {
-    width: 300px;
-    margin: 10%;
-}
-
-.facultate-card:hover {
-    transform: scale(1.05);
-}
-
 .facultate-card-content {
     display: flex;
     flex-direction: column;
+    margin: 10%;
+}
+
+.facultate-card-button {
+    justify-content: space-between;
+    margin-bottom: 2%
 }

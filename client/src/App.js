@@ -7,7 +7,7 @@ import { blue } from "@mui/material/colors";
 import Navbar from "./components/navbar/navbar";
 import OrarPage from "./pages/orar/orar-page";
 import AdministrarePage from "./pages/administrare/administrare-page";
-import VouchersPage from "./pages/vouchers/vouchers-page";
+import VouchersPage from "./pages/vouchers-page";
 import ColorModeContext from "./components/contexts/color-mode-context";
 import UserContext from "./components/contexts/user-context";
 import MateriiPage from "./pages/materii-page";
@@ -18,6 +18,7 @@ import GrupePage from "./pages/grupe-page";
 import FeedbacksPage from "./pages/feedbacks/feedbacks-page";
 import AdministratoriPage from "./pages/administratori-page";
 import StatisticiPage from "./pages/statistici-page/statistici-page";
+import FacultatiPage from "./pages/facultati-page";
 
 const getDesignTokens = (mode) => ({
   typography: {
@@ -75,6 +76,7 @@ function App() {
       { path: "/orar", element: <OrarPage /> },
       { path: "/administrare", element: <AdministrarePage /> },
       { path: "/vouchers", element: <VouchersPage /> },
+      { path: "/facultati", element: <FacultatiPage /> },
       { path: "/materii", element: <MateriiPage /> },
       { path: "/profesori", element: <ProfesoriPage /> },
       { path: "/sali", element: <SaliPage /> },

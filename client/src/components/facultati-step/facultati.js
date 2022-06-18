@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./facultati.scss";
-import FacultateCard from "../../components/facultate-card/facultate-card";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import { CircularProgress, Typography } from "@mui/material";
+import ClickableFacultateCard from "../facultate-card/clickable-facultate-card";
 
 const Facultati = ({ setActiveStep, setFacultateId }) => {
   const [facultati, setFacultati] = useState([]);
@@ -41,7 +41,7 @@ const Facultati = ({ setActiveStep, setFacultateId }) => {
       ) : facultati.length !== 0 ? (
         <div className="facultati-cards">
           {facultati.map((facultate) => (
-            <FacultateCard
+            <ClickableFacultateCard
               key={facultate.id}
               onClick={handleClickFacultate}
               facultate={facultate}

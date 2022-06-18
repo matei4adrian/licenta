@@ -9,7 +9,7 @@ const OptionCard = (props) => {
   const { denumire, to } = props;
 
   return (
-    <Card sx={{ width: 200, height: 150 }} className="option-card-layout">
+    <Card sx={{ width: 200, height: 100 }} className="option-card-layout">
       <CardActionArea href={to} className="option-card-action-area">
         <CardContent className="option-card-content">
           <Typography

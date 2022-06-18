@@ -28,6 +28,9 @@ Facultate.hasMany(Activitate, {
 });
 Activitate.belongsTo(Facultate);
 
+Facultate.hasMany(Serie);
+Serie.belongsTo(Facultate);
+
 Serie.hasMany(Grupa, {
   onDelete: "CASCADE",
   onUpdate: "CASCADE",
@@ -61,6 +64,7 @@ Materie.belongsToMany(Profesor, {
   onDelete: "CASCADE",
   onUpdate: "CASCADE",
 });
+
 Profesor.belongsToMany(Materie, {
   through: "Materie_Profesor",
 });

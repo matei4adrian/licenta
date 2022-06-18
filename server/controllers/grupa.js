@@ -1,9 +1,10 @@
 const SerieDB = require("../models").Serie;
 const GrupaDB = require("../models").Grupa;
+const FacultateDB = require("../models").Facultate;
 
 const controller = {
   getAll: async (req, res) => {
-    GrupaDB.findAll({ include: [SerieDB] })
+    GrupaDB.findAll({ include: [{ model: SerieDB, include: [FacultateDB] }] })
       .then((grupe) => {
         res.status(200).send(grupe);
       })

@@ -30,7 +30,6 @@ const AdministrarePage = () => {
           <div className="administrare-cards">
             {options.map((option) => (
               <OptionCard
-                className="administrare-card"
                 to={option.to}
                 denumire={option.denumire}
                 key={option.id}

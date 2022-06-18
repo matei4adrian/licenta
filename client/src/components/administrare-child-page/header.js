@@ -10,6 +10,7 @@ const Header = ({ pageTitleText, addButtonText, handleOpenAddModal }) => {
   const handleBack = () => {
     navigate("../administrare");
   };
+
   return (
     <>
       <Typography variant="h3">{pageTitleText}</Typography>
