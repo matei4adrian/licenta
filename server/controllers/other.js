@@ -1,6 +1,28 @@
 const connection = require("../models").connection;
+const path = require("path");
 const config = require("../config/config.json");
 const mysql = require("mysql2/promise");
+const multer = require("multer");
+
+const imageFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb("Please upload only images.", false);
+  }
+};
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, __basedir + "/resources/static/assets/uploads/");
+  },
+  filename: (req, file, cb) => {
+    const originalname = file.originalname.substring(
+      0,
+      file.originalname.length - path.extname(file.originalname).length
+    );
+    cb(null, `${originalname}.jpg`);
+  },
+});
 
 const controller = {
   reset: async (req, res, next) => {
@@ -36,6 +58,8 @@ const controller = {
       res.status(401).send("Nu esti autentificat!");
     }
   },
+
+  uploadFile: multer({ storage: storage, fileFilter: imageFilter }),
 };
 
 module.exports = controller;

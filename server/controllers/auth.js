@@ -29,7 +29,7 @@ passport.use(
                 {
                   nume: email.name.familyName,
                   prenume: email.name.givenName,
-                  userName: email.displayName,
+                  username: email.displayName,
                 },
                 {
                   where: {

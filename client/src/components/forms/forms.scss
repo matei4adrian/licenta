@@ -1,0 +1,17 @@
+.form {  
+    display: grid;
+    grid-gap: 20px;
+    width: 75%;
+    text-align: left;
+}
+
+.grid-form {
+    display: flex;
+    justify-content: center;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5%;
+}

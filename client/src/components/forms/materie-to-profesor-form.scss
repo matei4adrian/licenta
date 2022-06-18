@@ -1,0 +1,19 @@
+.materie-to-profesori-form {  
+    display: grid;
+    justify-content: center;
+    grid-gap: 20px;
+    width: 75%;
+    text-align: left;
+    margin-top: 4%;
+}
+
+.grid-materie-to-profesori {
+    display: flex;
+    justify-content: center;
+}
+
+.materie-to-profesori-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5%;
+}

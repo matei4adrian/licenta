@@ -5,16 +5,6 @@ const auth = require("../controllers/auth");
 const otherController = require("../controllers/other");
 const config = require("../config/config.json");
 
-router.get("/fail", (req, res) =>
-  res.status(400).send({ message: "Logarea a esuat!" })
-);
-router.get("/success", otherController.isLoggedIn, (req, res) => {
-  res.status(200).send({ message: `Buna, ${req.user.userName}` });
-});
-router.get("/logout-success", (req, res) => {
-  res.status(200).send({ message: "Te-ai delogat cu succes!" });
-});
-
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -23,11 +13,11 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: config.backend_url + "api/auth/fail",
+    failureRedirect: config.frontend_url + "/administrare?fail=true",
   }),
   (req, res) => {
     console.log(req.session);
-    res.redirect(config.backend_url + "api/auth/success");
+    res.redirect(config.frontend_url + "/administrare");
   }
 );
 
@@ -38,7 +28,7 @@ router.get("/getUser", (req, res) => {
 router.get("/logout", (req, res) => {
   req.logout();
   res.cookie("orar-session", {}, { maxAge: -1 });
-  res.redirect(`${config.backend_url}api/auth/logout-success`);
+  res.redirect(`${config.frontend_url}/administrare?logout=true`);
 });
 
 module.exports = router;

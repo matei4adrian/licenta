@@ -8,7 +8,7 @@ const controller = {
     let err = false;
     if (!user.email) {
       res.status(400).send({
-        message: "Email trebuie sa fie completat!",
+        message: "Emailul trebuie sa fie completat!",
       });
       err = true;
     }
@@ -29,6 +29,7 @@ const controller = {
     })
       .then((findUser) => {
         if (findUser) {
+          err = true;
           throw new Error("User deja existent!");
         }
       })
@@ -46,7 +47,7 @@ const controller = {
         })
         .catch((error) => {
           console.error(error);
-          res.status(500).send({ message: "Eroare la inserarea userului!!" });
+          res.status(500).send({ message: "Eroare la inserarea userului!" });
         });
     }
   },
@@ -63,15 +64,46 @@ const controller = {
 
   importFromCSV: async (req, res) => {
     try {
-      req.body.users.forEach((user) => {
-        UserDB.create({
-          email: user[0],
+      const duplicateUsers = [];
+      const malUsers = [];
+      const users = await UserDB.findAll();
+      const userEmails = users.map((user) => user.email);
+      for (const user of req.body.users) {
+        if (userEmails.includes(user[0])) {
+          duplicateUsers.push(user[0]);
+        }
+        if (
+          !user[0].match(
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          )
+        ) {
+          malUsers.push(user[0]);
+        }
+      }
+      if (malUsers.length > 0) {
+        res.status(400).send({
+          message: `Urmatoarele emailuri nu au formatul corect: ${malUsers.join(
+            ", "
+          )}`,
         });
-      });
+      } else if (duplicateUsers.length > 0) {
+        res.status(400).send({
+          message: `Userii urmatori exista deja in baza de date: ${duplicateUsers.join(
+            ", "
+          )}`,
+        });
+      } else {
+        req.body.users.forEach((user) => {
+          UserDB.create({
+            email: user[0],
+          });
+        });
+        res.status(201).send({ message: "Useri inserati cu succes!" });
+      }
     } catch (err) {
-      res.status(500).send(err);
+      console.log(err);
+      res.status(500).send({ message: err });
     }
-    res.status(201).send({ message: "Useri inserati cu succes!" });
   },
 };
 

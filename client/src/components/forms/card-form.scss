@@ -1,0 +1,26 @@
+.card-form {  
+    display: grid;
+    grid-gap: 20px;
+}
+
+@media (min-width: 600px) {
+    .card-form {  width: 75% }
+}   
+
+.grid-card {
+    display: flex;
+    justify-content: center;
+}
+
+.card-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5%;
+}
+
+.error-message{
+    color: #f44336;
+    font-size: 0.75rem;
+    margin-top: 3px;
+    margin-right: 100px;
+}
