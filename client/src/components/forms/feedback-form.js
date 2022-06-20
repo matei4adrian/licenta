@@ -118,7 +118,7 @@ const FeedbackForm = ({ onClose, onSubmit, submitText, subiectText }) => {
             ) : null}
             <div style={{ textAlign: "center" }}>
               <InputLabel htmlFor="calificativ" style={{ textAlign: "left" }}>
-                Calificativ
+                Calificativ *
               </InputLabel>
               <Field
                 as={RadioGroupRating}

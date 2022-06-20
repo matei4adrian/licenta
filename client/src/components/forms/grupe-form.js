@@ -49,7 +49,6 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
   const selectOptions =
     serii && serii.length > 0
       ? serii.map((serie) => {
-          console.log(serie);
           return {
             name: `${serie.litera} - ${serie.limba}, ${serie.facultate.denumire}`,
             value: serie.id,

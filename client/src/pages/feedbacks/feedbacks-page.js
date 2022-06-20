@@ -198,27 +198,28 @@ const FeedbacksPage = () => {
               title={
                 <div
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    fontSize: "1.5rem",
+                    padding: "0 10%",
                   }}
                 >
-                  {feedbackToView.subiect}{" "}
-                  {feedbackToView.esteVerificat ? (
-                    <CheckCircleOutlineIcon
-                      color="success"
-                      style={{ fontSize: "3rem" }}
-                    />
-                  ) : (
-                    <CancelOutlinedIcon
-                      color="error"
-                      style={{ fontSize: "3rem" }}
-                    />
-                  )}
+                  {feedbackToView.subiect}
                 </div>
               }
               content={
                 <div className="view-feedbacks-layout">
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    Status verificare:{" "}
+                    {feedbackToView.esteVerificat ? (
+                      <CheckCircleOutlineIcon color="success" />
+                    ) : (
+                      <CancelOutlinedIcon color="error" />
+                    )}
+                  </div>
                   <div>Email: {feedbackToView.email}</div>
                   <div>Nume: {feedbackToView.nume}</div>
                   <div>Calificativ: {feedbackToView.calificativ}</div>

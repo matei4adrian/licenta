@@ -31,6 +31,9 @@ Activitate.belongsTo(Facultate);
 Facultate.hasMany(Serie);
 Serie.belongsTo(Facultate);
 
+Facultate.hasMany(Materie);
+Materie.belongsTo(Facultate);
+
 Serie.hasMany(Grupa, {
   onDelete: "CASCADE",
   onUpdate: "CASCADE",

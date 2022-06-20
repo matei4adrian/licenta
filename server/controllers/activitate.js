@@ -1,18 +1,3 @@
-// id: 0,
-// title: "Algebra", din legatura cu materie o materie la mai multe cursuri si un curs la o materie
-// startDate: new Date(2022, 3, 18, 9, 15), alese din ui
-// endDate: new Date(2022, 3, 18, 10, 45),  alese din ui
-// type: "Seminar", din tipul cursului
-// sala: "1022", din legatura cu sala un curs va avea o sala
-// profesor: "Costel", 1 profesor la un curs
-// grupa: "1023, 1024", curs o sa aiba mai multe grupe mapate din serie ( de aici se poate obtine si seria)
-// rRule: "FREQ=WEEKLY;BYDAY=MO", // construit pe front in functie de ziua aleasa, interval = 2 daca e seminar o data la 2 sapt
-
-// curs il adaug la o facultate
-//curs o sa fie si la mai multe grupe
-//profesor ul ales
-//materie care va da si titlul
-
 const Sequelize = require("sequelize");
 const ActivitateDB = require("../models").Activitate;
 const GrupaDB = require("../models").Grupa;
@@ -87,7 +72,9 @@ const controller = {
       profesorId,
       grupe,
     } = req.body;
+    console.log(stringDataInceput);
     const dataInceput = new Date(stringDataInceput);
+    console.log(dataInceput);
     const dataSfarsit = new Date(stringDataSfarsit);
     if (Object.keys(req.body).length === 0) {
       res.status(400).send({ message: "Empty body!" });

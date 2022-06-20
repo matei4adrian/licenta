@@ -84,7 +84,9 @@ const controller = {
             res.status(500).send({ message: "Server error!" });
           });
       } else {
-        res.status(400).send({ message: "Seria exista deja!" });
+        res
+          .status(400)
+          .send({ message: "Seria exista deja pentru facultatea aceasta!" });
       }
     }
   },
