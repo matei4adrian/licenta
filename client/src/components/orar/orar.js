@@ -19,7 +19,6 @@ import ClassIcon from "@mui/icons-material/Class";
 import "./orar.scss";
 import { Context } from "../contexts/user-context";
 import BasicModalWithoutButtons from "../basic-modal/basic-modal-without-buttons";
-import Message from "../message/message";
 import axios from "axios";
 import ActivitateForm from "../forms/activitate-form";
 import { BACKEND_URL } from "../../config";
@@ -277,7 +276,7 @@ const Header = ({
       <BasicModalWithoutButtons
         open={openAddFeedbackModal}
         onClose={handleCloseAddFeedbackModal}
-        title="Trimite feedback general"
+        title="Trimite feedback"
         subTitle="Completati campurile obligatorii"
         content={
           <FeedbackForm
@@ -327,18 +326,24 @@ const Orar = ({
   errorMessage,
   setErrorMessage,
   getOrarAtChange,
+  activitati,
+  triggerRender,
+  setTriggerRender,
 }) => {
   const handleAddActivitate = async (values) => {
     if (errorMessage) {
       setErrorMessage("");
+    }
+    if (triggerRender) {
+      setTriggerRender(false);
     }
     await axios
       .post(BACKEND_URL + `/api/facultati/${facultateId}/activitati`, values, {
         withCredentials: true,
       })
       .then(() => {
-        handleCloseAddOraModal();
         getOrarAtChange();
+        handleCloseAddOraModal();
       })
       .catch((err) => {
         console.log(err);
@@ -350,7 +355,9 @@ const Orar = ({
     setOpenAddOraModal(false);
   };
 
-  useEffect(() => {}, [appointments]);
+  useEffect(() => {
+    setTriggerRender(true);
+  }, [activitati]);
 
   return (
     <Paper className="orar-paper">

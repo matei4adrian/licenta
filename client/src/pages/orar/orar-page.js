@@ -40,6 +40,7 @@ const OrarPage = () => {
   const [favCheckboxValue, setFavCheckboxValue] = useState(
     favOption ? !!favOption : false
   );
+  const [triggerRender, setTriggerRender] = useState(false);
 
   const handleNext = () => {
     let newSkipped = skipped;
@@ -138,12 +139,7 @@ const OrarPage = () => {
     setAppointments(app);
   };
 
-  // TODO De rezolvat problema cu rerandarea orarului
   useEffect(() => {
-    // if (favTip && favOption && favFacultateId) {
-    //   handleSubmitGetOrar({ tip: favTip, option: favOption });
-    // }
-
     getAppointments();
   }, [activitati]);
 
@@ -216,6 +212,9 @@ const OrarPage = () => {
                     setErrorMessage={setErrorMessage}
                     errorMessage={errorMessage}
                     getOrarAtChange={getOrarAtChange}
+                    activitati={activitati}
+                    triggerRender={triggerRender}
+                    setTriggerRender={setTriggerRender}
                   />
                 )}
                 {!!successMessage && (

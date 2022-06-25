@@ -81,6 +81,7 @@ const FeedbackForm = ({ onClose, onSubmit, submitText, subiectText }) => {
               as={TextField}
               name="subiect"
               label="Subiect"
+              disabled
               error={Boolean(props.touched.subiect && props.errors.subiect)}
               helperText={
                 <ErrorMessage name="subiect" /> &&
