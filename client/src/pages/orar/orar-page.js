@@ -55,11 +55,13 @@ const OrarPage = () => {
 
   const handleReset = () => {
     removeFav();
+    setAppointments([]);
     setActiveStep(0);
   };
 
   const handleChangeFilter = () => {
     removeFav();
+    setAppointments([]);
     setActiveStep(1);
   };
 
@@ -123,7 +125,7 @@ const OrarPage = () => {
   };
 
   const getAppointments = async () => {
-    const app = await activitati.map((activitate) => {
+    const apps = await activitati.map((activitate) => {
       return {
         id: activitate.id,
         title: activitate.materie.denumire,
@@ -136,7 +138,7 @@ const OrarPage = () => {
         rRule: activitate.rRule, //poa sa fie si din 2 in 2 sapt
       };
     });
-    setAppointments(app);
+    setAppointments(apps);
   };
 
   useEffect(() => {

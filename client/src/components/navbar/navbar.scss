@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     flex-grow: 1;
-
 }
 
 .navbar-logo {
@@ -23,6 +22,7 @@
 
 .navbar-link {
     border-bottom: 3px solid RGBA(0,0,0,0);
+    margin-left: 60px;
     text-decoration: none;
     color:white;
     font-size: 25px;
