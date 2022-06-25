@@ -55,16 +55,18 @@ const MaterieToProfesorForm = ({
     profesorToMaterieType === "delete"
       ? profesor.materies.length > 0
         ? profesor.materies.map((materie) => {
+            console.log(materie);
             return {
-              name: materie.denumire,
+              name: `${materie.denumire}, ${materie.facultate.denumire}`,
               value: materie.id,
             };
           })
         : []
       : materii.length > 0
       ? materii.map((materie) => {
+          console.log(materie);
           return {
-            name: materie.denumire,
+            name: `${materie.denumire}, ${materie.facultate.denumire}`,
             value: materie.id,
           };
         })

@@ -7,7 +7,7 @@ const FacultateDB = require("../models").Facultate;
 const SerieDB = require("../models").Serie;
 
 const controller = {
-  getAllOptions: async (req, res, next) => {
+  getFilterOptions: async (req, res, next) => {
     try {
       const facultate = await FacultateDB.findByPk(req.params.facultateId, {
         include: [{ model: SerieDB, include: [GrupaDB] }],
@@ -68,6 +68,49 @@ const controller = {
         res.status(200).send({
           allGrupeOfFacultate: allGrupeOfFacultate,
           grupe: grupe,
+          materii: materii,
+          profesori: profesori,
+          sali: sali,
+        });
+      } else {
+        res.status(404).send({ message: "Facultatea nu exista!" });
+      }
+    } catch (e) {
+      console.log(e);
+      res.status(500).send({ message: "Server error!" });
+    }
+  },
+  getCreateActivitateOptions: async (req, res, next) => {
+    try {
+      const facultate = await FacultateDB.findByPk(req.params.facultateId, {
+        include: [{ model: SerieDB, include: [GrupaDB] }],
+      });
+      if (facultate) {
+        const allGrupeOfFacultate = [];
+        const grupeSerii = facultate.series.map((serie) => serie.grupas);
+        for (const serie of grupeSerii) {
+          for (const grupa in serie) {
+            allGrupeOfFacultate.push(serie[grupa]);
+          }
+        }
+        const materii = await MaterieDB.findAll({
+          where: { facultateId: req.params.facultateId },
+          include: [{ model: ProfesorDB, include: [MaterieDB] }],
+        });
+        const profesori = [];
+        const emailProfesori = [];
+        for (const materie of materii) {
+          for (const profesor of materie.profesors) {
+            if (!emailProfesori.includes(profesor.email)) {
+              profesori.push(profesor);
+              emailProfesori.push(profesor.email);
+            }
+          }
+        }
+        const sali = await SalaDB.findAll();
+
+        res.status(200).send({
+          grupe: allGrupeOfFacultate,
           materii: materii,
           profesori: profesori,
           sali: sali,

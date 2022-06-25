@@ -41,6 +41,17 @@ const MateriiPage = () => {
       ),
     },
     {
+      field: "facultate",
+      headerName: "Facultatea",
+      description: "Facultatea de care apartine seria",
+      ...(!isMobile && { flex: 1 }),
+      renderCell: (params) => (
+        <Tooltip title={params.value.toString()}>
+          <span>{params.value.toString()}</span>
+        </Tooltip>
+      ),
+    },
+    {
       field: "an",
       headerName: "Anul",
       description: "Anul corespunzator materiei",
@@ -150,7 +161,16 @@ const MateriiPage = () => {
         addButtonText="Adauga materie"
         handleOpenAddModal={handleOpenAddMaterieModal}
       />
-      <CustomGrid columns={columns} rows={materii} loading={loading} />
+      <CustomGrid
+        columns={columns}
+        rows={materii.map((materie) => {
+          return {
+            ...materie,
+            facultate: materie.facultate.denumire,
+          };
+        })}
+        loading={loading}
+      />
       <BasicModalWithoutButtons
         open={openAddMaterieModal}
         onClose={handleCloseAddMaterieModal}

@@ -81,6 +81,7 @@ const FeedbackForm = ({ onClose, onSubmit, submitText, subiectText }) => {
               as={TextField}
               name="subiect"
               label="Subiect"
+              disabled
               error={Boolean(props.touched.subiect && props.errors.subiect)}
               helperText={
                 <ErrorMessage name="subiect" /> &&
@@ -118,7 +119,7 @@ const FeedbackForm = ({ onClose, onSubmit, submitText, subiectText }) => {
             ) : null}
             <div style={{ textAlign: "center" }}>
               <InputLabel htmlFor="calificativ" style={{ textAlign: "left" }}>
-                Calificativ
+                Calificativ *
               </InputLabel>
               <Field
                 as={RadioGroupRating}

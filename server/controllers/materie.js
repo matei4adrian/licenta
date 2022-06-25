@@ -1,9 +1,10 @@
 const MaterieDB = require("../models").Materie;
 const ProfesorDB = require("../models").Profesor;
+const FacultateDB = require("../models").Facultate;
 
 const controller = {
   getAll: async (req, res) => {
-    MaterieDB.findAll({ include: [ProfesorDB] })
+    MaterieDB.findAll({ include: [ProfesorDB, FacultateDB] })
       .then((materii) => {
         res.status(200).send(materii);
       })
@@ -13,7 +14,12 @@ const controller = {
       });
   },
   add: async (req, res) => {
-    if (req.body.denumire && req.body.semestru && req.body.an) {
+    if (
+      req.body.denumire &&
+      req.body.semestru &&
+      req.body.an &&
+      req.body.facultateId
+    ) {
       if (req.body.denumire.length < 1) {
         res.status(400).send({ message: "Denumire invalida!" });
       } else if (!["1", "2"].includes(req.body.semestru)) {
@@ -28,6 +34,7 @@ const controller = {
         const materieExistenta = await MaterieDB.findOne({
           where: {
             denumire: req.body.denumire,
+            facultateId: req.body.facultateId,
           },
         });
         if (!materieExistenta) {
@@ -40,7 +47,11 @@ const controller = {
               res.status(500).send(error);
             });
         } else {
-          res.status(400).send({ message: "Materia exista deja!" });
+          res
+            .status(400)
+            .send({
+              message: "Materia exista deja pentru facultatea aceasta!",
+            });
         }
       }
     } else {
@@ -63,6 +74,7 @@ const controller = {
         ? await MaterieDB.findOne({
             where: {
               denumire: req.body.denumire,
+              facultateId: req.body.facultateId,
             },
           })
         : null;
@@ -85,7 +97,9 @@ const controller = {
             res.status(500).send({ message: "Server error!" });
           });
       } else {
-        res.status(400).send({ message: "Materia exista deja!" });
+        res
+          .status(400)
+          .send({ message: "Materia exista deja pentru facultatea aceasta!" });
       }
     }
   },

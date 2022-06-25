@@ -1,14 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-// import { EditingState } from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
   WeekView,
   Appointments,
   AppointmentTooltip,
-  // ConfirmationDialog,
-  // EditRecurrenceMenu,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,6 +18,12 @@ import Grid from "@mui/material/Grid";
 import ClassIcon from "@mui/icons-material/Class";
 import "./orar.scss";
 import { Context } from "../contexts/user-context";
+import BasicModalWithoutButtons from "../basic-modal/basic-modal-without-buttons";
+import axios from "axios";
+import ActivitateForm from "../forms/activitate-form";
+import { BACKEND_URL } from "../../config";
+import BasicModal from "../basic-modal/basic-modal";
+import FeedbackForm from "../forms/feedback-form";
 
 const PREFIX = "Orar";
 
@@ -126,25 +129,117 @@ const withGrid = (Icon) => {
   );
 };
 
-const Header = ({ children, appointmentData, ...restProps }) => {
+const zileCalendar = {
+  1: "luni",
+  2: "marti",
+  3: "miercuri",
+  4: "joi",
+  5: "vineri",
+  6: "sambata",
+};
+
+const Header = ({
+  children,
+  appointmentData,
+  getOrarAtChange,
+  facultateId,
+  setSuccessMessage,
+  successMessage,
+  setErrorMessage,
+  errorMessage,
+  ...restProps
+}) => {
   const user = useContext(Context);
   const { isLoggedIn } = user;
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openAddFeedbackModal, setOpenAddFeedbackModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+
+  const handleCloseAddFeedbackModal = () => {
+    setOpenAddFeedbackModal(false);
+  };
+
+  const handleAddFeedback = async (values) => {
+    if (successMessage) {
+      setSuccessMessage("");
+    }
+    await axios
+      .post(BACKEND_URL + "/api/feedbacks/", values, {
+        withCredentials: true,
+      })
+      .then(() => {
+        handleCloseAddFeedbackModal();
+        setSuccessMessage("Feedback trimis cu succes");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleCloseDeleteModal = () => {
+    setOpenDeleteModal(false);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setOpenUpdateModal(false);
+  };
+
+  const handleDeleteActivitate = async () => {
+    await axios
+      .delete(
+        BACKEND_URL +
+          `/api/facultati/${facultateId}/activitati/${appointmentData.id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(() => {
+        handleCloseDeleteModal();
+        restProps.onHide();
+        getOrarAtChange();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleEditActivitate = async (values) => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+    await axios
+      .put(
+        BACKEND_URL +
+          `/api/facultati/${facultateId}/activitati/${appointmentData.id}`,
+        values,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(() => {
+        handleCloseUpdateModal();
+        restProps.onHide();
+        getOrarAtChange();
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrorMessage(err.response.data.message);
+      });
+  };
 
   return (
     <AppointmentTooltip.Header {...restProps}>
       {isLoggedIn && (
         <>
           <IconButton
-            aria-label="add feedback"
+            aria-label="delete appointment"
             size="large"
-            onClick={() => alert(JSON.stringify(appointmentData))}
+            onClick={() => setOpenDeleteModal(true)}
           >
             <DeleteIcon color="error" />
           </IconButton>
           <IconButton
             aria-label="edit appointment"
             size="large"
-            onClick={() => alert(JSON.stringify(appointmentData))}
+            onClick={() => setOpenUpdateModal(true)}
           >
             <EditIcon />
           </IconButton>
@@ -153,10 +248,55 @@ const Header = ({ children, appointmentData, ...restProps }) => {
       <IconButton
         aria-label="add feedback"
         size="large"
-        onClick={() => alert(JSON.stringify(appointmentData))}
+        onClick={() => setOpenAddFeedbackModal(true)}
       >
         <ErrorIcon />
       </IconButton>
+      <BasicModal
+        open={openDeleteModal}
+        onClose={handleCloseDeleteModal}
+        title="Sterge activitate"
+        onSubmit={handleDeleteActivitate}
+        content={`Esti sigur ca vrei sa stergi aceasta activitate?`}
+      />
+      <BasicModalWithoutButtons
+        open={openUpdateModal}
+        onClose={handleCloseUpdateModal}
+        title="Actualizati activitate"
+        content={
+          <ActivitateForm
+            onSubmit={handleEditActivitate}
+            onClose={handleCloseUpdateModal}
+            facultateId={facultateId}
+            submitText="Actualizeaza"
+            toBeEdited={appointmentData}
+          />
+        }
+      />
+      <BasicModalWithoutButtons
+        open={openAddFeedbackModal}
+        onClose={handleCloseAddFeedbackModal}
+        title="Trimite feedback"
+        subTitle="Completati campurile obligatorii"
+        content={
+          <FeedbackForm
+            onSubmit={handleAddFeedback}
+            onClose={handleCloseAddFeedbackModal}
+            submitText="Trimite"
+            subiectText={`${appointmentData.type} ${appointmentData.title}, ${
+              zileCalendar[appointmentData.startDate.getDay()]
+            }, intre ${appointmentData.startDate.getHours()}:${
+              (appointmentData.startDate.getMinutes() < 10 ? "0" : "") +
+              appointmentData.startDate.getMinutes()
+            } - ${appointmentData.endDate.getHours()}:${
+              (appointmentData.endDate.getMinutes() < 10 ? "0" : "") +
+              appointmentData.endDate.getMinutes()
+            }, grupa/le ${appointmentData.grupa}, profesor ${
+              appointmentData.profesor
+            }, sala ${appointmentData.sala}`}
+          />
+        }
+      />
     </AppointmentTooltip.Header>
   );
 };
@@ -176,61 +316,52 @@ const Content = ({ children, appointmentData, ...restProps }) => (
   </AppointmentTooltip.Content>
 );
 
-const Orar = ({ activitati }) => {
-  const data = activitati.map((activitate) => {
-    return {
-      id: activitate.id,
-      title: activitate.materie.denumire,
-      startDate: activitate.dataInceput,
-      endDate: activitate.dataSfarsit,
-      type: activitate.tipActivitate,
-      sala: activitate.sala.numar,
-      profesor: `${activitate.profesor.nume} ${activitate.profesor.prenume}`,
-      grupa: activitate.grupas.map((grupa) => grupa.numar).join(", "),
-      rRule: activitate.rRule, //poa sa fie si din 2 in 2 sapt
-    };
-  });
-  // const appointments = [
-  //   {
-  //     id: 0,
-  //     title: "Algebra",
-  //     startDate: new Date(2022, 3, 18, 18, 0),
-  //     endDate: new Date(2022, 3, 18, 19, 30),
-  //     type: "Seminar",
-  //     sala: "1022",
-  //     profesor: "Costel",
-  //     grupa: "1023, 1024",
-  //     rRule: "FREQ=WEEKLY;BYDAY=MO", //poa sa fie si din 2 in 2 sapt
-  //   },
-  // ];
+const Orar = ({
+  appointments,
+  facultateId,
+  openAddOraModal,
+  setOpenAddOraModal,
+  setSuccessMessage,
+  successMessage,
+  errorMessage,
+  setErrorMessage,
+  getOrarAtChange,
+  activitati,
+  triggerRender,
+  setTriggerRender,
+}) => {
+  const handleAddActivitate = async (values) => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+    if (triggerRender) {
+      setTriggerRender(false);
+    }
+    await axios
+      .post(BACKEND_URL + `/api/facultati/${facultateId}/activitati`, values, {
+        withCredentials: true,
+      })
+      .then(() => {
+        getOrarAtChange();
+        handleCloseAddOraModal();
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrorMessage(err.response.data.message);
+      });
+  };
 
-  // const commitChanges = ({ added, changed, deleted }) => {
-  //   setData((state) => {
-  //     let { data } = state;
-  //     if (added) {
-  //       const startingAddedId =
-  //         data.length > 0 ? data[data.length - 1].id + 1 : 0;
-  //       data = [...data, { id: startingAddedId, ...added }];
-  //     }
-  //     if (changed) {
-  //       data = data.map((appointment) =>
-  //         changed[appointment.id]
-  //           ? { ...appointment, ...changed[appointment.id] }
-  //           : appointment
-  //       );
-  //     }
-  //     if (deleted !== undefined) {
-  //       data = data.filter((appointment) => appointment.id !== deleted);
-  //     }
-  //     return { data };
-  //   });
-  // };
+  const handleCloseAddOraModal = () => {
+    setOpenAddOraModal(false);
+  };
+
+  useEffect(() => {
+    setTriggerRender(true);
+  }, [activitati]);
 
   return (
     <Paper className="orar-paper">
-      <Scheduler data={data} locale={"ro-RO"}>
-        {/* <EditingState onCommitChanges={commitChanges}  /> */}
-
+      <Scheduler data={appointments} locale={"ro-RO"}>
         <WeekView
           startDayHour={5.75}
           endDayHour={19}
@@ -242,14 +373,38 @@ const Orar = ({ activitati }) => {
           appointmentComponent={Appointment}
           appointmentContentComponent={AppointmentContent}
         />
-        {/* <EditRecurrenceMenu /> */}
-        {/* <ConfirmationDialog /> */}
         <AppointmentTooltip
-          headerComponent={Header}
+          headerComponent={(props) => {
+            return (
+              <Header
+                {...props}
+                getOrarAtChange={getOrarAtChange}
+                facultateId={facultateId}
+                setSuccessMessage={setSuccessMessage}
+                successMessage={successMessage}
+                setErrorMessage={setErrorMessage}
+                errorMessage={errorMessage}
+              />
+            );
+          }}
           contentComponent={Content}
           showCloseButton
         />
       </Scheduler>
+      <BasicModalWithoutButtons
+        open={openAddOraModal}
+        onClose={handleCloseAddOraModal}
+        title="Adauga activitate"
+        subTitle="Completati campurile"
+        content={
+          <ActivitateForm
+            onSubmit={handleAddActivitate}
+            onClose={handleCloseAddOraModal}
+            facultateId={facultateId}
+            submitText="Adauga"
+          />
+        }
+      />
     </Paper>
   );
 };
