@@ -3,14 +3,35 @@ const MaterieDB = require("../models").Materie;
 
 const controller = {
   getAll: async (req, res) => {
-    ProfesorDB.findAll({ include: [MaterieDB] })
-      .then((profesori) => {
-        res.status(200).send(profesori);
+    if (req.query.facultateId && req.query.materie) {
+      ProfesorDB.findAll({
+        include: [
+          {
+            model: MaterieDB,
+            where: {
+              denumire: req.query.materie,
+              facultateId: req.query.facultateId,
+            },
+          },
+        ],
       })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send({ message: "Server error!" });
-      });
+        .then((profesori) => {
+          res.status(200).send(profesori);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send({ message: "Server error!" });
+        });
+    } else {
+      ProfesorDB.findAll({ include: [MaterieDB] })
+        .then((profesori) => {
+          res.status(200).send(profesori);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send({ message: "Server error!" });
+        });
+    }
   },
   add: async (req, res) => {
     const emailRegexp =

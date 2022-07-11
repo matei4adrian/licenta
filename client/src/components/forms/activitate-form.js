@@ -71,16 +71,18 @@ const ActivitateForm = ({
                 )[0].id
               : 1,
         }
-      : {}
+      : null
   );
   const [loading, setLoading] = useState(true);
 
-  const profesoriByMaterie = options.profesori
-    ? options.profesori.filter(
-        (profesor) =>
-          profesor.materies.filter((mat) => mat.id === materie.value).length > 0
-      )
-    : [];
+  const profesoriByMaterie =
+    options.profesori && materie
+      ? options.profesori.filter(
+          (profesor) =>
+            profesor.materies.filter((mat) => mat.id === materie.value).length >
+            0
+        )
+      : [];
 
   const initialValues = toBeEdited
     ? {
@@ -129,7 +131,7 @@ const ActivitateForm = ({
             options.sali && options.sali.length > 0
               ? options.sali.filter((s) => s.numar === toBeEdited.sala)[0].id
               : 1,
-        }, //sala
+        },
         materie: {
           name: toBeEdited.title,
           value:
@@ -138,16 +140,20 @@ const ActivitateForm = ({
                   (m) => m.denumire === toBeEdited.title
                 )[0].id
               : 1,
-        }, //title
+        },
         profesor: {
           name: toBeEdited.profesor,
           value:
             profesoriByMaterie && profesoriByMaterie.length > 0
               ? profesoriByMaterie.filter(
                   (p) => `${p.nume} ${p.prenume}` === toBeEdited.profesor
-                )[0].id
+                )[0]
+                ? profesoriByMaterie.filter(
+                    (p) => `${p.nume} ${p.prenume}` === toBeEdited.profesor
+                  )[0].id
+                : 1
               : 1,
-        }, //profesor nume + prenume
+        },
       }
     : {
         oraInceput: "",
@@ -160,6 +166,7 @@ const ActivitateForm = ({
         materie: null,
         profesor: null,
       };
+
   const validationSchema = Yup.object().shape({
     oraInceput: Yup.string().required("Selectati ora de incepere!"),
     ziua: Yup.string().required("Selectati ziua!"),
@@ -208,7 +215,6 @@ const ActivitateForm = ({
   };
 
   const selectOptions = {
-    //TODO sa dea doar elemntul pe care s a facut filtrul
     grupe:
       options.grupe && options.grupe.length > 0
         ? options.grupe.map((grupa) => {
@@ -251,6 +257,22 @@ const ActivitateForm = ({
     getOptions();
   }, []);
 
+  useEffect(() => {
+    setMaterie(
+      toBeEdited
+        ? {
+            name: toBeEdited.title,
+            value:
+              options.materii && options.materii.length > 0
+                ? options.materii.filter(
+                    (m) => m.denumire === toBeEdited.title
+                  )[0].id
+                : 1,
+          }
+        : null
+    );
+  }, [options]);
+
   return (
     <Grid className="grid-form">
       {loading ? (
@@ -260,6 +282,7 @@ const ActivitateForm = ({
       ) : (
         <Formik
           initialValues={initialValues}
+          enableReinitialize={true}
           validationSchema={validationSchema}
           onSubmit={(values) => {
             const activitate = {
@@ -284,7 +307,7 @@ const ActivitateForm = ({
                 zileCalendar[values.ziua]
               }`,
               salaId: values.sala.value,
-              materieId: values.materie.value,
+              materieId: materie.value,
               profesorId: values.profesor.value,
             };
 
@@ -519,8 +542,10 @@ const ActivitateForm = ({
                 onChange={(event, value) => {
                   setMaterie(value);
                   props.setFieldValue("materie", value);
+                  props.setFieldValue("profesor", null);
+                  props.setFieldValue("profesor", null);
                 }}
-                value={props.values.materie}
+                value={materie}
                 includeInputInList
                 renderInput={(params) => (
                   <TextField
