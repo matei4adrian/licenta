@@ -117,7 +117,7 @@ const AdministratoriPage = () => {
     <div className="pages-layout">
       <Header
         pageTitleText="Administratori"
-        addButtonText="Adauga admin"
+        addButtonText="Adaugă administrator"
         handleOpenAddModal={handleOpenAddAdministratorModal}
       />
       <CustomGrid
@@ -127,7 +127,7 @@ const AdministratoriPage = () => {
             ...user,
             username: user.username
               ? user.username
-              : "Administratorului nu s-a autentificat inca",
+              : "Administratorului nu s-a autentificat încă",
           };
         })}
         loading={loading}
@@ -135,14 +135,14 @@ const AdministratoriPage = () => {
       <BasicModalWithoutButtons
         open={openAddAdministratorModal}
         onClose={handleCloseAddAdministratorModal}
-        title="Adauga administrator"
-        subTitle="Completati campul"
+        title="Adaugă administrator"
+        subTitle="Completați campul"
         content={
           <AdministratoriForm
             onSubmitEmail={handleAddAdministratorByEmail}
             onSubmitUsers={handleAddAdministratorByUsers}
             onClose={handleCloseAddAdministratorModal}
-            submitText="Adauga"
+            submitText="Adaugă"
           />
         }
       />

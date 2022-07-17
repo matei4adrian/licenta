@@ -17,10 +17,10 @@ const FacultateForm = ({ onClose, onSubmit, facultate, submitText }) => {
       };
   const validationSchema = Yup.object().shape({
     denumire: Yup.string()
-      .min(3, "Denumirea este prea scurta!")
-      .required("Completati denumirea!"),
+      .min(3, "Denumirea este prea scurtă!")
+      .required("Completați denumirea!"),
     fotografie: !facultate
-      ? Yup.mixed().required("Selectati o fotografie!")
+      ? Yup.mixed().required("Selectați o fotografie!")
       : null,
   });
 
@@ -71,7 +71,7 @@ const FacultateForm = ({ onClose, onSubmit, facultate, submitText }) => {
               )}
             </div>
             <div className="card-form-buttons">
-              <Button onClick={onClose}>Inchide</Button>
+              <Button onClick={onClose}>Închide</Button>
               <Button
                 variant="contained"
                 style={{ marginLeft: "10px" }}

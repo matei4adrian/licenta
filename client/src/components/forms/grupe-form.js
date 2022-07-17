@@ -21,8 +21,8 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
         serie: null,
       };
   const validationSchema = Yup.object().shape({
-    numar: Yup.string().required("Completati numarul grupei!"),
-    serie: Yup.object().nullable().required("Selectati seria!"),
+    numar: Yup.string().required("Completați numărul grupei!"),
+    serie: Yup.object().nullable().required("Selectați seria!"),
   });
   const [serii, setSerii] = useState([]);
   const [openAutocomplete, setOpenAutocomplete] = useState(false);
@@ -74,7 +74,7 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
             <Field
               as={TextField}
               name="numar"
-              label="Numar"
+              label="Număr"
               error={Boolean(props.touched.numar && props.errors.numar)}
               helperText={
                 <ErrorMessage name="numar" /> &&
@@ -135,7 +135,7 @@ const GrupeForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
               <div style={{ marginTop: "3px" }}></div>
             ) : null}
             <div className="form-buttons">
-              <Button onClick={onClose}>Inchide</Button>
+              <Button onClick={onClose}>Închide</Button>
               <Button
                 variant="contained"
                 style={{ marginLeft: "10px" }}

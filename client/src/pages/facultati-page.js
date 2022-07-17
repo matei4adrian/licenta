@@ -4,8 +4,6 @@ import "./pages.scss";
 import { Typography } from "@mui/material";
 import axios from "axios";
 import { Context } from "../components/contexts/user-context";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/material/CircularProgress";
 import { BACKEND_URL } from "../config";
 import BasicModalWithoutButtons from "../components/basic-modal/basic-modal-without-buttons";
@@ -80,20 +78,20 @@ const FacultatiPage = () => {
       ) : (
         <div className="pages-layout" style={{ marginTop: "3%" }}>
           <Header
-            pageTitleText="Facultati"
-            addButtonText="Adauga facultate"
+            pageTitleText="Facultăți"
+            addButtonText="Adaugă facultate"
             handleOpenAddModal={handleOpen}
           />
           <BasicModalWithoutButtons
             open={open}
             onClose={handleClose}
-            title="Adauga facultate"
-            subTitle="Completati campurile"
+            title="Adaugă facultate"
+            subTitle="Completați câmpurile"
             content={
               <FacultateForm
                 onSubmit={handleAdd}
                 onClose={handleClose}
-                submitText="Adauga"
+                submitText="Adaugă"
               />
             }
           />
@@ -110,7 +108,7 @@ const FacultatiPage = () => {
               </div>
             ) : (
               <Typography variant="h3" className="no-card-added">
-                Nicio facultate nu a fost adaugata
+                Nicio facultate nu a fost adaugată
               </Typography>
             )}
           </div>

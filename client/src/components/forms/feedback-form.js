@@ -16,17 +16,17 @@ const FeedbackForm = ({ onClose, onSubmit, submitText, subiectText }) => {
     calificativ: 0,
   };
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Emailul trebuie sa aiba o forma valida"),
-    nume: Yup.string().min(1, "Nume invalid!").required("Completati numele!"),
+    email: Yup.string().email("Emailul trebuie să aibă o formă validă"),
+    nume: Yup.string().min(1, "Nume invalid!").required("Completați numele!"),
     subiect: Yup.string()
       .min(5, "Subiectul este vag prezentat!")
-      .required("Introduceti subiectul!"),
+      .required("Introduceți subiectul!"),
     comentariu: Yup.string()
-      .min(30, "Detalizeaza putin mai mult! (min. 30 caractere)")
-      .required("Introduceti comentariul!"),
+      .min(30, "Detalizează puțin mai mult! (min. 30 caractere)")
+      .required("Introduceți comentariul!"),
     calificativ: Yup.number()
-      .oneOf([1, 2, 3, 4, 5], "Alegeti un calificativ!")
-      .required("Alegeti un calificativ!"),
+      .oneOf([1, 2, 3, 4, 5], "Alegeți un calificativ!")
+      .required("Alegeți un calificativ!"),
   });
 
   return (
@@ -43,7 +43,7 @@ const FeedbackForm = ({ onClose, onSubmit, submitText, subiectText }) => {
             <Field
               as={TextField}
               name="email"
-              label="Email (daca avem nevoie de detalii amanuntite)"
+              label="Email (dacă avem nevoie de detalii amănunțite)"
               error={Boolean(props.touched.email && props.errors.email)}
               helperText={
                 <ErrorMessage name="email" /> &&
@@ -153,7 +153,7 @@ const FeedbackForm = ({ onClose, onSubmit, submitText, subiectText }) => {
               )}
             </div>
             <div className="form-buttons">
-              <Button onClick={onClose}>Inchide</Button>
+              <Button onClick={onClose}>Închide</Button>
               <Button
                 variant="contained"
                 style={{ marginLeft: "10px" }}

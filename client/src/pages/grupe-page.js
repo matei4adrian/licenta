@@ -28,8 +28,8 @@ const GrupePage = () => {
   const columns = [
     {
       field: "numar",
-      headerName: "Numar",
-      description: "Numarul grupei",
+      headerName: "Număr",
+      description: "Numărul grupei",
       flex: 1,
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -50,7 +50,7 @@ const GrupePage = () => {
     },
     {
       field: "actiuni",
-      headerName: "Actiuni",
+      headerName: "Acțiuni",
       sortable: false,
       filterable: false,
       flex: 1,
@@ -68,9 +68,9 @@ const GrupePage = () => {
             setToBeDeleted={setGrupaToBeDeleted}
             editUrl={`${BACKEND_URL}/api/grupe/${grupaToBeEdited.id}`}
             deleteUrl={`${BACKEND_URL}/api/grupe/${grupaToBeDeleted.id}`}
-            updateTitle="Actualizeaza grupa"
-            deleteTitle="Sterge grupa"
-            deleteContent="Esti sigur ca vrei sa stergi aceasta grupa?"
+            updateTitle="Actualizează grupa"
+            deleteTitle="Șterge grupa"
+            deleteContent="Ești sigur că vrei să ștergi această grupă?"
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             Form={GrupeForm}
@@ -137,7 +137,7 @@ const GrupePage = () => {
     <div className="pages-layout">
       <Header
         pageTitleText="Grupe"
-        addButtonText="Adauga grupa"
+        addButtonText="Adaugă grupă"
         handleOpenAddModal={handleOpenAddGrupaModal}
       />
       <CustomGrid
@@ -153,13 +153,13 @@ const GrupePage = () => {
       <BasicModalWithoutButtons
         open={openAddGrupaModal}
         onClose={handleCloseAddGrupaModal}
-        title="Adauga grupa"
-        subTitle="Completati campurile"
+        title="Adaugă grupă"
+        subTitle="Completați câmpurile"
         content={
           <GrupeForm
             onSubmit={handleAddGrupa}
             onClose={handleCloseAddGrupaModal}
-            submitText="Adauga"
+            submitText="Adaugă"
           />
         }
       />

@@ -94,7 +94,7 @@ const ActiuniColumn = ({
           <Form
             onSubmit={handleEdit}
             onClose={handleCloseUpdateModal}
-            submitText="Actualizeaza"
+            submitText="Actualizează"
             toBeEdited={toBeEdited}
           />
         }

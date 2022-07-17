@@ -72,9 +72,7 @@ const controller = {
       profesorId,
       grupe,
     } = req.body;
-    console.log(stringDataInceput);
     const dataInceput = new Date(stringDataInceput);
-    console.log(dataInceput);
     const dataSfarsit = new Date(stringDataSfarsit);
     if (Object.keys(req.body).length === 0) {
       res.status(400).send({ message: "Empty body!" });

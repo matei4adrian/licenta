@@ -108,7 +108,7 @@ const AdministratoriForm = ({
           ? Yup.string().email("Format email invalid!")
           : Yup.string()
               .email("Format email invalid!")
-              .required("Completati emailul sau adaugati un csv cu useri!");
+              .required("Completați emailul sau adăugați un csv cu useri!");
       }),
   });
 
@@ -224,7 +224,7 @@ const AdministratoriForm = ({
                           </div>
                         </>
                       ) : (
-                        "Introduceti un csv cu emailul administratorilor"
+                        "Introduceți un csv cu emailul administratorilor"
                       )}
                     </div>
                   </>
@@ -232,7 +232,7 @@ const AdministratoriForm = ({
               </CSVReader>
             </div>
             <div className="form-buttons">
-              <Button onClick={onClose}>Inchide</Button>
+              <Button onClick={onClose}>Închide</Button>
               <Button
                 variant="contained"
                 style={{ marginLeft: "10px" }}

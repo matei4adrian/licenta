@@ -36,7 +36,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Numar profesori/numar grupe la care desfasoara activitati",
+      text: "Număr profesori/număr grupe la care desfășoară activități",
     },
   },
 };

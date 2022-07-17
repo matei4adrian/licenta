@@ -168,34 +168,34 @@ const ActivitateForm = ({
       };
 
   const validationSchema = Yup.object().shape({
-    oraInceput: Yup.string().required("Selectati ora de incepere!"),
-    ziua: Yup.string().required("Selectati ziua!"),
+    oraInceput: Yup.string().required("Selectați ora de începere!"),
+    ziua: Yup.string().required("Selectați ziua!"),
     ...{
       ...(la2Sapt && {
         parImpar: Yup.string()
-          .required("Alegeti tipul saptamanii!")
+          .required("Alegeți tipul săptămânii!")
           .oneOf(
             ["para", "impara"],
-            "Valoarea trebuie sa fie 'para' sau 'impara'"
+            "Valoarea trebuie să fie 'para' sau 'impara'"
           ),
       }),
     },
     tipActivitate: Yup.string()
-      .required("Alegeti tipul activitatii!")
+      .required("Alegeți tipul activității!")
       .oneOf(
         ["Seminar", "Curs"],
-        "Valoarea trebuie sa fie 'Seminar' sau 'Curs'"
+        "Valoarea trebuie să fie 'Seminar' sau 'Curs'"
       ),
     grupe:
       tipActiv === "Curs"
         ? Yup.array()
-            .min(5, "Trebuie sa selectezi exact 5 grupe!")
-            .max(5, "Trebuie sa selectezi exact 5 grupe!")
-            .required("Selectati grupa!")
-        : Yup.object().nullable().required("Selectati grupa!"),
-    sala: Yup.object().nullable().required("Selectati sala!"),
-    materie: Yup.object().nullable().required("Selectati materia!"),
-    profesor: Yup.object().nullable().required("Selectati profesorul!"),
+            .min(5, "Trebuie să selectezi exact 5 grupe!")
+            .max(5, "Trebuie să selectezi exact 5 grupe!")
+            .required("Selectați grupa!")
+        : Yup.object().nullable().required("Selectați grupa!"),
+    sala: Yup.object().nullable().required("Selectați sala!"),
+    materie: Yup.object().nullable().required("Selectați materia!"),
+    profesor: Yup.object().nullable().required("Selectați profesorul!"),
   });
 
   const getOptions = async () => {
@@ -336,7 +336,7 @@ const ActivitateForm = ({
                   Luni
                 </MenuItem>
                 <MenuItem key={"2"} value={"Marti"}>
-                  Marti
+                  Marți
                 </MenuItem>
                 <MenuItem key={"3"} value={"Miercuri"}>
                   Miercuri
@@ -348,7 +348,7 @@ const ActivitateForm = ({
                   Vineri
                 </MenuItem>
                 <MenuItem key={"6"} value={"Sambata"}>
-                  Sambata
+                  Sâmbătă
                 </MenuItem>
               </Field>
               {!Boolean(props.touched.ziua && props.errors.ziua) ? (
@@ -357,7 +357,7 @@ const ActivitateForm = ({
               <Field
                 as={TextField}
                 name="oraInceput"
-                label="Ora inceput"
+                label="Ora început"
                 select
                 error={Boolean(
                   props.touched.oraInceput && props.errors.oraInceput
@@ -397,7 +397,7 @@ const ActivitateForm = ({
               <Field
                 name="la2Sapt"
                 as={FormControlLabel}
-                label="Activitatea are loc la 2 saptamani"
+                label="Activitatea are loc la 2 săptămâni"
                 control={
                   <Checkbox
                     checked={props.values.la2Sapt}
@@ -414,7 +414,7 @@ const ActivitateForm = ({
               ) : null}
               {props.values.la2Sapt && (
                 <div>
-                  <FormLabel>Tip saptamana</FormLabel>
+                  <FormLabel>Tip săptămână</FormLabel>
                   <RadioGroup
                     row
                     name="parImpar"
@@ -423,13 +423,13 @@ const ActivitateForm = ({
                   >
                     <Field
                       as={FormControlLabel}
-                      label="Saptamana para"
+                      label="Săptămână pară"
                       value="para"
                       control={<Radio />}
                     />
                     <Field
                       as={FormControlLabel}
-                      label="Saptamana impara"
+                      label="Săptămână impară"
                       value="impara"
                       control={<Radio />}
                     />
@@ -543,7 +543,6 @@ const ActivitateForm = ({
                   setMaterie(value);
                   props.setFieldValue("materie", value);
                   props.setFieldValue("profesor", null);
-                  props.setFieldValue("profesor", null);
                 }}
                 value={materie}
                 includeInputInList
@@ -654,7 +653,7 @@ const ActivitateForm = ({
               ) : null}
 
               <div className="form-buttons">
-                <Button onClick={onClose}>Inchide</Button>
+                <Button onClick={onClose}>Închide</Button>
                 <Button
                   variant="contained"
                   style={{ marginLeft: "10px" }}

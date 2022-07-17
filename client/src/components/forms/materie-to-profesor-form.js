@@ -18,7 +18,7 @@ const MaterieToProfesorForm = ({
     materie: "",
   };
   const validationSchema = Yup.object().shape({
-    materie: Yup.string().required("Selectati materia!"),
+    materie: Yup.string().required("Selectați materia!"),
   });
   const [materii, setMaterii] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -125,7 +125,7 @@ const MaterieToProfesorForm = ({
                 <div style={{ marginTop: "3px" }}></div>
               ) : null}
               <div className="materie-to-profesori-form-buttons">
-                <Button onClick={onClose}>Inchide</Button>
+                <Button onClick={onClose}>Închide</Button>
                 <Button
                   variant="contained"
                   style={{ marginLeft: "10px" }}

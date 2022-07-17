@@ -18,13 +18,13 @@ const ProfesoriForm = ({ onClose, onSubmit, profesor, submitText }) => {
         email: "",
       };
   const validationSchema = Yup.object().shape({
-    nume: Yup.string().min(2, "Nume invalid!").required("Completati numele!"),
+    nume: Yup.string().min(2, "Nume invalid!").required("Completați numele!"),
     prenume: Yup.string()
       .min(2, "Prenume invalid!")
-      .required("Completati numele!"),
+      .required("Completați numele!"),
     email: Yup.string()
       .email("Format email invalid!")
-      .required("Completati emailul!"),
+      .required("Completați emailul!"),
   });
 
   return (
@@ -104,7 +104,7 @@ const ProfesoriForm = ({ onClose, onSubmit, profesor, submitText }) => {
             ) : null}
 
             <div className="form-buttons">
-              <Button onClick={onClose}>Inchide</Button>
+              <Button onClick={onClose}>Închide</Button>
               <Button
                 variant="contained"
                 style={{ marginLeft: "10px" }}

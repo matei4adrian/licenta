@@ -25,10 +25,10 @@ const SeriiForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
       };
   const validationSchema = Yup.object().shape({
     litera: Yup.string()
-      .max(1, "Litera seriei este reprezentata de un singur caracter!")
-      .required("Completati litera!"),
-    limba: Yup.string().required("Selectati limba!"),
-    facultate: Yup.object().nullable().required("Selectati facultatea!"),
+      .max(1, "Litera seriei este reprezentată de un singur caracter!")
+      .required("Completați litera!"),
+    limba: Yup.string().required("Selectați limba!"),
+    facultate: Yup.object().nullable().required("Selectați facultatea!"),
   });
   const [facultati, setFacultati] = useState([]);
   const [openAutocomplete, setOpenAutocomplete] = useState(false);
@@ -177,7 +177,7 @@ const SeriiForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
                 <div style={{ marginTop: "3px" }}></div>
               ) : null}
               <div className="form-buttons">
-                <Button onClick={onClose}>Inchide</Button>
+                <Button onClick={onClose}>Închide</Button>
                 <Button
                   variant="contained"
                   style={{ marginLeft: "10px" }}

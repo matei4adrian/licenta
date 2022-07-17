@@ -42,7 +42,7 @@ const SeriiPage = () => {
     {
       field: "facultate",
       headerName: "Facultatea",
-      description: "Facultatea de care apartine seria",
+      description: "Facultatea de care aparține seria",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -53,7 +53,7 @@ const SeriiPage = () => {
     {
       field: "limba",
       headerName: "Limba",
-      description: "Limba programului de licenta a seriei",
+      description: "Limba programului de licență a seriei",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -64,7 +64,7 @@ const SeriiPage = () => {
     {
       field: "grupe",
       headerName: "Grupe",
-      description: "Grupele care apartin seriei",
+      description: "Grupele care aparțin seriei",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -74,7 +74,7 @@ const SeriiPage = () => {
     },
     {
       field: "actiuni",
-      headerName: "Actiuni",
+      headerName: "Acțiuni",
       sortable: false,
       filterable: false,
       ...(!isMobile ? { flex: 1 } : { width: 150 }),
@@ -92,9 +92,9 @@ const SeriiPage = () => {
             setToBeDeleted={setSerieToBeDeleted}
             editUrl={`${BACKEND_URL}/api/serii/${serieToBeEdited.id}`}
             deleteUrl={`${BACKEND_URL}/api/serii/${serieToBeDeleted.id}`}
-            updateTitle="Actualizeaza seria"
-            deleteTitle="Sterge seria"
-            deleteContent="Esti sigur ca vrei sa stergi aceasta serie? Grupele aferente acesteia vor fi sterse de asemenea."
+            updateTitle="Actualizează seria"
+            deleteTitle="Șterge seria"
+            deleteContent="Ești sigur că vrei să ștergi această serie? Grupele aferente acesteia vor fi șterse de asemenea."
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             Form={SeriiForm}
@@ -157,7 +157,7 @@ const SeriiPage = () => {
     <div className="pages-layout">
       <Header
         pageTitleText="Serii"
-        addButtonText="Adauga serie"
+        addButtonText="Adaugă serie"
         handleOpenAddModal={handleOpenAddSerieModal}
       />
       <CustomGrid
@@ -171,7 +171,7 @@ const SeriiPage = () => {
           return {
             ...serie,
             facultate: serie.facultate.denumire,
-            grupe: grupeSerie.length > 0 ? grupeSerie.join(", ") : "Fara grupe",
+            grupe: grupeSerie.length > 0 ? grupeSerie.join(", ") : "Fără grupe",
           };
         })}
         loading={loading}
@@ -179,13 +179,13 @@ const SeriiPage = () => {
       <BasicModalWithoutButtons
         open={openAddSerieModal}
         onClose={handleCloseAddSerieModal}
-        title="Adauga serie"
-        subTitle="Completati campurile"
+        title="Adaugă serie"
+        subTitle="Completați câmpurile"
         content={
           <SeriiForm
             onSubmit={handleAddSerie}
             onClose={handleCloseAddSerieModal}
-            submitText="Adauga"
+            submitText="Adaugă"
           />
         }
       />

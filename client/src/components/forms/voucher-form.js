@@ -23,16 +23,16 @@ const VoucherForm = ({ onClose, onSubmit, voucher, submitText }) => {
   const validationSchema = Yup.object().shape({
     compania: Yup.string()
       .min(3, "Numele companiei este prea scurt!")
-      .required("Completati compania!"),
+      .required("Completați compania!"),
     descriere: Yup.string()
-      .min(10, "Descrierea este prea scurta!")
-      .required("Completati descrierea!"),
+      .min(10, "Descrierea este prea scurtă!")
+      .required("Completați descrierea!"),
     valoare: Yup.number()
-      .min(1, "Valoarea trebuie sa fie minim 0")
-      .max(100, "Valoarea trebuie sa fie maxim 100")
-      .required("Completati valoarea!"),
+      .min(1, "Valoarea trebuie să fie minim 0")
+      .max(100, "Valoarea trebuie să fie maxim 100")
+      .required("Completați valoarea!"),
     fotografie: !voucher
-      ? Yup.mixed().required("Selectati o fotografie!")
+      ? Yup.mixed().required("Selectați o fotografie!")
       : null,
   });
 
@@ -120,7 +120,7 @@ const VoucherForm = ({ onClose, onSubmit, voucher, submitText }) => {
               )}
             </div>
             <div className="card-form-buttons">
-              <Button onClick={onClose}>Inchide</Button>
+              <Button onClick={onClose}>Închide</Button>
               <Button
                 variant="contained"
                 style={{ marginLeft: "10px" }}
