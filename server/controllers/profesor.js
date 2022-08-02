@@ -1,5 +1,6 @@
 const ProfesorDB = require("../models").Profesor;
 const MaterieDB = require("../models").Materie;
+const FacultateDB = require("../models").Facultate;
 
 const controller = {
   getAll: async (req, res) => {
@@ -23,7 +24,9 @@ const controller = {
           res.status(500).send({ message: "Server error!" });
         });
     } else {
-      ProfesorDB.findAll({ include: [MaterieDB] })
+      ProfesorDB.findAll({
+        include: [{ model: MaterieDB, include: [FacultateDB] }],
+      })
         .then((profesori) => {
           res.status(200).send(profesori);
         })

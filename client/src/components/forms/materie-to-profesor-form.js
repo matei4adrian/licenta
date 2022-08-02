@@ -21,7 +21,9 @@ const MaterieToProfesorForm = ({
     materie: Yup.string().required("Selectați materia!"),
   });
   const [materii, setMaterii] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(
+    profesorToMaterieType === "add" ? true : false
+  );
 
   const getMaterii = async () => {
     await axios
@@ -55,7 +57,6 @@ const MaterieToProfesorForm = ({
     profesorToMaterieType === "delete"
       ? profesor.materies.length > 0
         ? profesor.materies.map((materie) => {
-            console.log(materie);
             return {
               name: `${materie.denumire}, ${materie.facultate.denumire}`,
               value: materie.id,
@@ -64,7 +65,6 @@ const MaterieToProfesorForm = ({
         : []
       : materii.length > 0
       ? materii.map((materie) => {
-          console.log(materie);
           return {
             name: `${materie.denumire}, ${materie.facultate.denumire}`,
             value: materie.id,
