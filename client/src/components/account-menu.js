@@ -37,7 +37,7 @@ const AccountMenu = () => {
 
   return (
     <>
-      <Tooltip title="Setari cont">
+      <Tooltip title="Setări cont">
         <IconButton
           onClick={handleClick}
           size="small"

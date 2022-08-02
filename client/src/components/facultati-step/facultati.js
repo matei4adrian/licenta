@@ -50,7 +50,7 @@ const Facultati = ({ setActiveStep, setFacultateId }) => {
         </div>
       ) : (
         <Typography variant="h3" className="no-facultate-added">
-          Nicio facultate nu a fost adaugata
+          Nicio facultate nu a fost adaugată
         </Typography>
       )}
     </div>

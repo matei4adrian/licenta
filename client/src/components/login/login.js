@@ -32,9 +32,9 @@ const Login = () => {
           Autentificare cu Google
         </Button>
       </div>
-      {!!fail && <Message severity="error" message="Autentificare esuata!" />}
+      {!!fail && <Message severity="error" message="Autentificare esuată!" />}
       {!!logout && (
-        <Message severity="info" message="V-ati delogat cu succes!" />
+        <Message severity="info" message="V-ați delogat cu succes!" />
       )}
     </>
   );

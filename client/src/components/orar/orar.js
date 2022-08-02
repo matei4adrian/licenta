@@ -255,20 +255,20 @@ const Header = ({
       <BasicModal
         open={openDeleteModal}
         onClose={handleCloseDeleteModal}
-        title="Sterge activitate"
+        title="Șterge activitate"
         onSubmit={handleDeleteActivitate}
-        content={`Esti sigur ca vrei sa stergi aceasta activitate?`}
+        content={`Ești sigur că vrei să ștergi această activitate?`}
       />
       <BasicModalWithoutButtons
         open={openUpdateModal}
         onClose={handleCloseUpdateModal}
-        title="Actualizati activitate"
+        title="Actualizați activitate"
         content={
           <ActivitateForm
             onSubmit={handleEditActivitate}
             onClose={handleCloseUpdateModal}
             facultateId={facultateId}
-            submitText="Actualizeaza"
+            submitText="Actualizează"
             toBeEdited={appointmentData}
           />
         }
@@ -277,7 +277,7 @@ const Header = ({
         open={openAddFeedbackModal}
         onClose={handleCloseAddFeedbackModal}
         title="Trimite feedback"
-        subTitle="Completati campurile obligatorii"
+        subTitle="Completați câmpurile obligatorii"
         content={
           <FeedbackForm
             onSubmit={handleAddFeedback}
@@ -394,14 +394,14 @@ const Orar = ({
       <BasicModalWithoutButtons
         open={openAddOraModal}
         onClose={handleCloseAddOraModal}
-        title="Adauga activitate"
-        subTitle="Completati campurile"
+        title="Adaugă activitate"
+        subTitle="Completați câmpurile"
         content={
           <ActivitateForm
             onSubmit={handleAddActivitate}
             onClose={handleCloseAddOraModal}
             facultateId={facultateId}
-            submitText="Adauga"
+            submitText="Adaugă"
           />
         }
       />

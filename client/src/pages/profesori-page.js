@@ -80,7 +80,7 @@ const ProfesoriPage = () => {
     {
       field: "email",
       headerName: "Email",
-      description: "Emailul institutional al profesorului",
+      description: "Emailul instituțional al profesorului",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -91,7 +91,7 @@ const ProfesoriPage = () => {
     {
       field: "materii",
       headerName: "Materii",
-      description: "Materiile predate de catre profesor",
+      description: "Materiile predate de către profesor",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -101,7 +101,7 @@ const ProfesoriPage = () => {
     },
     {
       field: "actiuni",
-      headerName: "Actiuni",
+      headerName: "Acțiuni",
       sortable: false,
       filterable: false,
       ...(!isMobile ? { flex: 1 } : { width: 150 }),
@@ -256,27 +256,27 @@ const ProfesoriPage = () => {
                 <ListItemIcon>
                   <AddIcon fontSize="small" />
                 </ListItemIcon>
-                Adauga materie
+                Adaugă materie
               </MenuItem>
               <MenuItem onClick={handleOpenDeleteMaterieToProfesor}>
                 <ListItemIcon>
                   <RemoveIcon fontSize="small" />
                 </ListItemIcon>
-                Sterge materie
+                Șterge materie
               </MenuItem>
             </Menu>
             <BasicModalWithoutButtons
               open={openMaterieToProfesorModal}
               onClose={handleCloseMaterieToProfesorModal}
               title={`${
-                profesorToMaterieType === "delete" ? "Sterge" : "Adauga"
+                profesorToMaterieType === "delete" ? "Șterge" : "Adaugă"
               } materia profesorului`}
               content={
                 <MaterieToProfesorForm
                   onSubmit={handleMaterieToProfesor}
                   onClose={handleCloseMaterieToProfesorModal}
                   submitText={
-                    profesorToMaterieType === "delete" ? "Sterge" : "Adauga"
+                    profesorToMaterieType === "delete" ? "Șterge" : "Adaugă"
                   }
                   profesor={profesorToUpdateMaterie}
                   profesorToMaterieType={profesorToMaterieType}
@@ -286,12 +286,12 @@ const ProfesoriPage = () => {
             <BasicModalWithoutButtons
               open={openUpdateProfesorModal}
               onClose={handleCloseUpdateProfesorModal}
-              title="Actualizeaza profesor"
+              title="Actualizează profesor"
               content={
                 <ProfesoriForm
                   onSubmit={handleEditProfesor}
                   onClose={handleCloseUpdateProfesorModal}
-                  submitText="Actualizeaza"
+                  submitText="Actualizează"
                   profesor={profesorToBeEdited}
                 />
               }
@@ -299,9 +299,9 @@ const ProfesoriPage = () => {
             <BasicModal
               open={openDeleteProfesorModal}
               onClose={handleCloseDeleteProfesorModal}
-              title="Sterge profesor"
+              title="Șterge profesor"
               onSubmit={handleDeleteProfesor}
-              content={`Esti sigur ca vrei sa stergi acest profesor?`}
+              content={`Ești sigur că vrei să ștergi acest profesor?`}
             />
           </div>
         );
@@ -362,7 +362,7 @@ const ProfesoriPage = () => {
     <div className="pages-layout">
       <Header
         pageTitleText="Profesori"
-        addButtonText="Adauga profesor"
+        addButtonText="Adaugă profesor"
         handleOpenAddModal={handleOpenAddProfesorModal}
       />
       <CustomGrid
@@ -378,7 +378,7 @@ const ProfesoriPage = () => {
             materii:
               materiiProfesor.length > 0
                 ? materiiProfesor.join(", ")
-                : "Fara materii",
+                : "Fără materii",
           };
         })}
         loading={loading}
@@ -386,13 +386,13 @@ const ProfesoriPage = () => {
       <BasicModalWithoutButtons
         open={openAddProfesorModal}
         onClose={handleCloseAddProfesorModal}
-        title="Adauga profesor"
-        subTitle="Completati campurile"
+        title="Adaugă profesor"
+        subTitle="Completați câmpurile"
         content={
           <ProfesoriForm
             onSubmit={handleAddProfesor}
             onClose={handleCloseAddProfesorModal}
-            submitText="Adauga"
+            submitText="Adaugă"
           />
         }
       />

@@ -80,18 +80,18 @@ const VoucherPage = () => {
                 startIcon={<AddIcon />}
                 onClick={handleOpen}
               >
-                Adauga voucher
+                Adaugă voucher
               </Button>
               <BasicModalWithoutButtons
                 open={open}
                 onClose={handleClose}
-                title="Adauga voucher"
-                subTitle="Completati campurile"
+                title="Adaugă voucher"
+                subTitle="Completați câmpurile"
                 content={
                   <VoucherForm
                     onSubmit={handleAddVoucher}
                     onClose={handleClose}
-                    submitText="Adauga"
+                    submitText="Adaugă"
                   />
                 }
               />
@@ -109,7 +109,7 @@ const VoucherPage = () => {
             </div>
           ) : (
             <Typography variant="h3" className="no-card-added">
-              Niciun voucher nu a fost adaugat
+              Niciun voucher nu a fost adăugat
             </Typography>
           )}
         </div>

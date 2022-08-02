@@ -43,7 +43,7 @@ const MateriiPage = () => {
     {
       field: "facultate",
       headerName: "Facultatea",
-      description: "Facultatea de care apartine seria",
+      description: "Facultatea de care aparține seria",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -54,7 +54,7 @@ const MateriiPage = () => {
     {
       field: "an",
       headerName: "Anul",
-      description: "Anul corespunzator materiei",
+      description: "Anul corespunzător materiei",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -65,7 +65,7 @@ const MateriiPage = () => {
     {
       field: "semestru",
       headerName: "Semestrul",
-      description: "Semestrul corespunzator materiei",
+      description: "Semestrul corespunzător materiei",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -75,7 +75,7 @@ const MateriiPage = () => {
     },
     {
       field: "actiuni",
-      headerName: "Actiuni",
+      headerName: "Acțiuni",
       sortable: false,
       filterable: false,
       ...(!isMobile && { flex: 1 }),
@@ -93,9 +93,9 @@ const MateriiPage = () => {
             setToBeDeleted={setMaterieToBeDeleted}
             editUrl={`${BACKEND_URL}/api/materii/${materieToBeEdited.id}`}
             deleteUrl={`${BACKEND_URL}/api/materii/${materieToBeDeleted.id}`}
-            updateTitle="Actualizeaza materie"
-            deleteTitle="Sterge materie"
-            deleteContent="Esti sigur ca vrei sa stergi aceasta materie?"
+            updateTitle="Actualizează materie"
+            deleteTitle="Șterge materie"
+            deleteContent="Ești sigur că vrei să ștergi această materie?"
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             Form={MateriiForm}
@@ -158,7 +158,7 @@ const MateriiPage = () => {
     <div className="pages-layout">
       <Header
         pageTitleText="Materii"
-        addButtonText="Adauga materie"
+        addButtonText="Adaugă materie"
         handleOpenAddModal={handleOpenAddMaterieModal}
       />
       <CustomGrid
@@ -174,13 +174,13 @@ const MateriiPage = () => {
       <BasicModalWithoutButtons
         open={openAddMaterieModal}
         onClose={handleCloseAddMaterieModal}
-        title="Adauga materie"
-        subTitle="Completati campurile"
+        title="Adaugă materie"
+        subTitle="Completați câmpurile"
         content={
           <MateriiForm
             onSubmit={handleAddMaterie}
             onClose={handleCloseAddMaterieModal}
-            submitText="Adauga"
+            submitText="Adaugă"
           />
         }
       />

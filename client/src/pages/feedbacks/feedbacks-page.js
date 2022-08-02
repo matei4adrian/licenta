@@ -68,7 +68,7 @@ const FeedbacksPage = () => {
       field: "calificativ",
       headerName: "Calificativ",
       description:
-        "Calificativul celui care a dat feedback-ul referitor la problema",
+        "Calificativul celui care a dat feedback-ul referitor la problemă",
       ...(!isMobile && { flex: 1 }),
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -132,7 +132,7 @@ const FeedbacksPage = () => {
     },
     {
       field: "actiuni",
-      headerName: "Actiuni",
+      headerName: "Acțiuni",
       sortable: false,
       filterable: false,
       ...(!isMobile ? { flex: 1 } : { width: 150 }),
@@ -188,9 +188,9 @@ const FeedbacksPage = () => {
             <BasicModal
               open={openDeleteFeedbackModal}
               onClose={handleCloseDeleteFeedbackModal}
-              title="Sterge feedback"
+              title="Șterge feedback"
               onSubmit={handleDeleteFeedback}
-              content={`Esti sigur ca vrei sa stergi acest feedback?`}
+              content={`Ești sigur că vrei să ștergi acest feedback?`}
             />
             <BasicModalWithoutButtons
               open={openViewFeedbackModal}
@@ -229,7 +229,7 @@ const FeedbacksPage = () => {
                       variant="contained"
                       onClick={handleCloseViewFeedbackModal}
                     >
-                      Inchide
+                      Închide
                     </Button>
                   </div>
                 </div>

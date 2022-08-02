@@ -15,9 +15,28 @@ import Favorite from "@mui/icons-material/Favorite";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import { Checkbox, CircularProgress, FormControlLabel } from "@mui/material";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import Message from "../../components/message/message";
 
-const steps = ["Selecteaza facultatea", "Alege filtrul"];
+const steps = ["Selectează facultatea", "Alege filtrul"];
+
+const zileCalendar = {
+  MO: "Luni",
+  TU: "Marti",
+  WE: "Miercuri",
+  TH: "Joi",
+  FR: "Vineri",
+  SA: "Sambata",
+};
+
+const zileCalendarNumerotate = {
+  MO: 1,
+  TU: 2,
+  WE: 3,
+  TH: 4,
+  FR: 5,
+  SA: 6,
+};
 
 const OrarPage = () => {
   const favTip = localStorage.getItem("favTip");
@@ -124,6 +143,77 @@ const OrarPage = () => {
     }
   };
 
+  const exportActivitatiToCsv = () => {
+    const compareActivitati = (activitate1, activitate2) => {
+      const data1 = new Date(activitate1.dataInceput);
+      const data2 = new Date(activitate2.dataInceput);
+      if (
+        zileCalendarNumerotate[activitate1.rRule.slice(-2)] <
+        zileCalendarNumerotate[activitate2.rRule.slice(-2)]
+      ) {
+        return -1;
+      }
+      if (
+        zileCalendarNumerotate[activitate1.rRule.slice(-2)] >
+        zileCalendarNumerotate[activitate2.rRule.slice(-2)]
+      ) {
+        return 1;
+      }
+
+      if (data1.getHours() < data2.getHours()) {
+        return -1;
+      }
+      if (data1.getHours() > data2.getHours()) {
+        return 1;
+      }
+
+      if (data1.getMinutes() < data2.getMinutes()) {
+        return -1;
+      }
+      if (data1.getMinutes() > data2.getMinutes()) {
+        return 1;
+      }
+      return 0;
+    };
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      "materie;zi;oraInceput;frecventa;tip;grupe;profesor;sala\n" +
+      activitati
+        .sort(compareActivitati)
+        .map((activitate) => {
+          const zi = zileCalendar[activitate.rRule.slice(-2)];
+          const data = new Date(activitate.dataInceput);
+          const frecventa = activitate.rRule.includes("INTERVAL=2")
+            ? activitate.dataInceput.includes("2022-05-16")
+              ? "Saptamana impara"
+              : "Saptamana para"
+            : "Saptamanal";
+          const grupe = activitate.grupas.map((g) => g.numar).join(", ");
+
+          return `${
+            activitate.materie.denumire
+          };${zi};${data.getHours()}:${data.getMinutes()};${frecventa};${
+            activitate.tipActivitate
+          };${grupe};${activitate.profesor.nume} ${
+            activitate.profesor.prenume
+          };${activitate.sala.numar}`;
+        })
+        .join("\n");
+
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    const denumireFisier =
+      tip !== "profesor"
+        ? `orar-${tip}-${option}.csv`
+        : `orar-${tip}-${option.substring(0, option.lastIndexOf("@"))}.csv`;
+    link.setAttribute("download", denumireFisier);
+    document.body.appendChild(link);
+
+    link.click();
+  };
+
   const getAppointments = async () => {
     const apps = await activitati.map((activitate) => {
       return {
@@ -170,10 +260,34 @@ const OrarPage = () => {
             <div className="orar-page-container">
               <div className="orar-page-buttons-container">
                 <div>
-                  <Button onClick={handleReset}>Schimba facultatea</Button>
-                  <Button onClick={handleChangeFilter}>Schimba filtrul</Button>
+                  <Button onClick={handleReset}>Schimbă facultatea</Button>
+                  <Button onClick={handleChangeFilter}>
+                    Schimbă filtrul ({tip}{" "}
+                    {tip !== "profesor"
+                      ? option
+                      : option.substring(0, option.lastIndexOf("@"))}
+                    )
+                  </Button>
                 </div>
-                <div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  {user.isLoggedIn && (
+                    <Button
+                      variant="contained"
+                      startIcon={<AddIcon />}
+                      onClick={() => setOpenAddOraModal(true)}
+                    >
+                      Adaugă activitate
+                    </Button>
+                  )}
+                  <Button
+                    variant="contained"
+                    color="success"
+                    startIcon={<FileDownloadIcon />}
+                    style={{ marginRight: "10px", marginLeft: "10px" }}
+                    onClick={exportActivitatiToCsv}
+                  >
+                    Export orar
+                  </Button>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -187,15 +301,6 @@ const OrarPage = () => {
                       />
                     }
                   />
-                  {user.isLoggedIn && (
-                    <Button
-                      variant="contained"
-                      startIcon={<AddIcon />}
-                      onClick={() => setOpenAddOraModal(true)}
-                    >
-                      Adauga activitate
-                    </Button>
-                  )}
                 </div>
               </div>
               <div className="orar-page-content">
@@ -237,7 +342,7 @@ const OrarPage = () => {
                 onClick={handleBack}
                 sx={{ mr: 1 }}
               >
-                Inapoi
+                Înapoi
               </Button>
             </Box>
             {activeStep + 1 === 1 && (
@@ -255,7 +360,7 @@ const OrarPage = () => {
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
               {activeStep !== 0 && activeStep !== steps.length - 1 && (
-                <Button onClick={handleNext}>Urmatorul</Button>
+                <Button onClick={handleNext}>Următorul</Button>
               )}
             </Box>
           </React.Fragment>

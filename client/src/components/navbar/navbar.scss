@@ -1,6 +1,7 @@
 .navbar-navlinks {
     display: flex;
     justify-content: space-between;
+    font-family: 'Lato';
     flex-grow: 1;
 }
 
@@ -17,6 +18,7 @@
 
 .navbar-title-link {
     text-decoration: none;
+    font-family: 'Lato';
     color:white;
 }
 
@@ -26,12 +28,13 @@
     text-decoration: none;
     color:white;
     font-size: 25px;
+    opacity: 0.7;
     &:hover {
-        border-bottom: 2px solid white;
+        opacity: 1;
     }
     &:active {
         color:rgb(204, 203, 203);
-        border-bottom: 2px solid rgb(204, 203, 203);
+        transform: scale(1.05);
     }
 }
   

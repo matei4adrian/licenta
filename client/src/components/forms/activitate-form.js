@@ -71,16 +71,18 @@ const ActivitateForm = ({
                 )[0].id
               : 1,
         }
-      : {}
+      : null
   );
   const [loading, setLoading] = useState(true);
 
-  const profesoriByMaterie = options.profesori
-    ? options.profesori.filter(
-        (profesor) =>
-          profesor.materies.filter((mat) => mat.id === materie.value).length > 0
-      )
-    : [];
+  const profesoriByMaterie =
+    options.profesori && materie
+      ? options.profesori.filter(
+          (profesor) =>
+            profesor.materies.filter((mat) => mat.id === materie.value).length >
+            0
+        )
+      : [];
 
   const initialValues = toBeEdited
     ? {
@@ -129,7 +131,7 @@ const ActivitateForm = ({
             options.sali && options.sali.length > 0
               ? options.sali.filter((s) => s.numar === toBeEdited.sala)[0].id
               : 1,
-        }, //sala
+        },
         materie: {
           name: toBeEdited.title,
           value:
@@ -138,16 +140,20 @@ const ActivitateForm = ({
                   (m) => m.denumire === toBeEdited.title
                 )[0].id
               : 1,
-        }, //title
+        },
         profesor: {
           name: toBeEdited.profesor,
           value:
             profesoriByMaterie && profesoriByMaterie.length > 0
               ? profesoriByMaterie.filter(
                   (p) => `${p.nume} ${p.prenume}` === toBeEdited.profesor
-                )[0].id
+                )[0]
+                ? profesoriByMaterie.filter(
+                    (p) => `${p.nume} ${p.prenume}` === toBeEdited.profesor
+                  )[0].id
+                : 1
               : 1,
-        }, //profesor nume + prenume
+        },
       }
     : {
         oraInceput: "",
@@ -160,35 +166,36 @@ const ActivitateForm = ({
         materie: null,
         profesor: null,
       };
+
   const validationSchema = Yup.object().shape({
-    oraInceput: Yup.string().required("Selectati ora de incepere!"),
-    ziua: Yup.string().required("Selectati ziua!"),
+    oraInceput: Yup.string().required("Selectați ora de începere!"),
+    ziua: Yup.string().required("Selectați ziua!"),
     ...{
       ...(la2Sapt && {
         parImpar: Yup.string()
-          .required("Alegeti tipul saptamanii!")
+          .required("Alegeți tipul săptămânii!")
           .oneOf(
             ["para", "impara"],
-            "Valoarea trebuie sa fie 'para' sau 'impara'"
+            "Valoarea trebuie să fie 'para' sau 'impara'"
           ),
       }),
     },
     tipActivitate: Yup.string()
-      .required("Alegeti tipul activitatii!")
+      .required("Alegeți tipul activității!")
       .oneOf(
         ["Seminar", "Curs"],
-        "Valoarea trebuie sa fie 'Seminar' sau 'Curs'"
+        "Valoarea trebuie să fie 'Seminar' sau 'Curs'"
       ),
     grupe:
       tipActiv === "Curs"
         ? Yup.array()
-            .min(5, "Trebuie sa selectezi exact 5 grupe!")
-            .max(5, "Trebuie sa selectezi exact 5 grupe!")
-            .required("Selectati grupa!")
-        : Yup.object().nullable().required("Selectati grupa!"),
-    sala: Yup.object().nullable().required("Selectati sala!"),
-    materie: Yup.object().nullable().required("Selectati materia!"),
-    profesor: Yup.object().nullable().required("Selectati profesorul!"),
+            .min(5, "Trebuie să selectezi exact 5 grupe!")
+            .max(5, "Trebuie să selectezi exact 5 grupe!")
+            .required("Selectați grupa!")
+        : Yup.object().nullable().required("Selectați grupa!"),
+    sala: Yup.object().nullable().required("Selectați sala!"),
+    materie: Yup.object().nullable().required("Selectați materia!"),
+    profesor: Yup.object().nullable().required("Selectați profesorul!"),
   });
 
   const getOptions = async () => {
@@ -208,7 +215,6 @@ const ActivitateForm = ({
   };
 
   const selectOptions = {
-    //TODO sa dea doar elemntul pe care s a facut filtrul
     grupe:
       options.grupe && options.grupe.length > 0
         ? options.grupe.map((grupa) => {
@@ -251,6 +257,22 @@ const ActivitateForm = ({
     getOptions();
   }, []);
 
+  useEffect(() => {
+    setMaterie(
+      toBeEdited
+        ? {
+            name: toBeEdited.title,
+            value:
+              options.materii && options.materii.length > 0
+                ? options.materii.filter(
+                    (m) => m.denumire === toBeEdited.title
+                  )[0].id
+                : 1,
+          }
+        : null
+    );
+  }, [options]);
+
   return (
     <Grid className="grid-form">
       {loading ? (
@@ -260,6 +282,7 @@ const ActivitateForm = ({
       ) : (
         <Formik
           initialValues={initialValues}
+          enableReinitialize={true}
           validationSchema={validationSchema}
           onSubmit={(values) => {
             const activitate = {
@@ -284,7 +307,7 @@ const ActivitateForm = ({
                 zileCalendar[values.ziua]
               }`,
               salaId: values.sala.value,
-              materieId: values.materie.value,
+              materieId: materie.value,
               profesorId: values.profesor.value,
             };
 
@@ -313,7 +336,7 @@ const ActivitateForm = ({
                   Luni
                 </MenuItem>
                 <MenuItem key={"2"} value={"Marti"}>
-                  Marti
+                  Marți
                 </MenuItem>
                 <MenuItem key={"3"} value={"Miercuri"}>
                   Miercuri
@@ -325,7 +348,7 @@ const ActivitateForm = ({
                   Vineri
                 </MenuItem>
                 <MenuItem key={"6"} value={"Sambata"}>
-                  Sambata
+                  Sâmbătă
                 </MenuItem>
               </Field>
               {!Boolean(props.touched.ziua && props.errors.ziua) ? (
@@ -334,7 +357,7 @@ const ActivitateForm = ({
               <Field
                 as={TextField}
                 name="oraInceput"
-                label="Ora inceput"
+                label="Ora început"
                 select
                 error={Boolean(
                   props.touched.oraInceput && props.errors.oraInceput
@@ -374,7 +397,7 @@ const ActivitateForm = ({
               <Field
                 name="la2Sapt"
                 as={FormControlLabel}
-                label="Activitatea are loc la 2 saptamani"
+                label="Activitatea are loc la 2 săptămâni"
                 control={
                   <Checkbox
                     checked={props.values.la2Sapt}
@@ -391,7 +414,7 @@ const ActivitateForm = ({
               ) : null}
               {props.values.la2Sapt && (
                 <div>
-                  <FormLabel>Tip saptamana</FormLabel>
+                  <FormLabel>Tip săptămână</FormLabel>
                   <RadioGroup
                     row
                     name="parImpar"
@@ -400,13 +423,13 @@ const ActivitateForm = ({
                   >
                     <Field
                       as={FormControlLabel}
-                      label="Saptamana para"
+                      label="Săptămână pară"
                       value="para"
                       control={<Radio />}
                     />
                     <Field
                       as={FormControlLabel}
-                      label="Saptamana impara"
+                      label="Săptămână impară"
                       value="impara"
                       control={<Radio />}
                     />
@@ -519,8 +542,9 @@ const ActivitateForm = ({
                 onChange={(event, value) => {
                   setMaterie(value);
                   props.setFieldValue("materie", value);
+                  props.setFieldValue("profesor", null);
                 }}
-                value={props.values.materie}
+                value={materie}
                 includeInputInList
                 renderInput={(params) => (
                   <TextField
@@ -629,7 +653,7 @@ const ActivitateForm = ({
               ) : null}
 
               <div className="form-buttons">
-                <Button onClick={onClose}>Inchide</Button>
+                <Button onClick={onClose}>Închide</Button>
                 <Button
                   variant="contained"
                   style={{ marginLeft: "10px" }}

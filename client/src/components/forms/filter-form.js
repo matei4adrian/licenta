@@ -11,7 +11,7 @@ const FilterForm = ({ onSubmit, tipFiltru, options, label }) => {
     option: "",
   };
   const validationSchema = Yup.object().shape({
-    option: Yup.string().required("Selectati o valoare!"),
+    option: Yup.string().required("Selectați o valoare!"),
   });
 
   const selectOptions =
@@ -83,7 +83,7 @@ const FilterForm = ({ onSubmit, tipFiltru, options, label }) => {
             ) : null}
             <div className="form-buttons">
               <Button style={{ marginLeft: "10px" }} type="submit">
-                Afiseaza orarul
+                Afișează orarul
               </Button>
             </div>
           </Form>

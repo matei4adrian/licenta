@@ -14,7 +14,7 @@ const SaliForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
         numar: "",
       };
   const validationSchema = Yup.object().shape({
-    numar: Yup.string().min(1, "Numar invalid!").required("Completati numar!"),
+    numar: Yup.string().min(1, "Număr invalid!").required("Completați numar!"),
   });
 
   return (
@@ -29,7 +29,7 @@ const SaliForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
             <Field
               as={TextField}
               name="numar"
-              label="Numar"
+              label="Număr"
               error={Boolean(props.touched.numar && props.errors.numar)}
               helperText={
                 <ErrorMessage name="numar" /> &&
@@ -50,7 +50,7 @@ const SaliForm = ({ onClose, onSubmit, toBeEdited, submitText }) => {
             ) : null}
 
             <div className="form-buttons">
-              <Button onClick={onClose}>Inchide</Button>
+              <Button onClick={onClose}>Închide</Button>
               <Button
                 variant="contained"
                 style={{ marginLeft: "10px" }}

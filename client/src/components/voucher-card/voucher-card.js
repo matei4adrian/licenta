@@ -134,9 +134,9 @@ const VoucherCard = (props) => {
       <BasicModal
         open={openDeleteModal}
         onClose={handleCloseDeleteModal}
-        title="Sterge voucher"
+        title="Șterge voucher"
         onSubmit={handleDelete}
-        content={`Esti sigur ca vrei sa stergi acest voucher?`}
+        content={`Ești sigur că vrei să ștergi acest voucher?`}
       />
       <BasicModalWithoutButtons
         open={openDetaliiModal}
@@ -147,7 +147,7 @@ const VoucherCard = (props) => {
             {descriere}
             <div className="detalii-buttons">
               <Button variant="contained" onClick={handleCloseDetaliiModal}>
-                Inchide
+                Închide
               </Button>
             </div>
           </div>
@@ -156,13 +156,13 @@ const VoucherCard = (props) => {
       <BasicModalWithoutButtons
         open={openUpdateModal}
         onClose={handleCloseUpdateModal}
-        title="Actualizeaza voucher"
+        title="Actualizează voucher"
         content={
           <VoucherForm
             onSubmit={handleUpdateVoucher}
             onClose={handleCloseUpdateModal}
             voucher={voucher}
-            submitText="Actualizeaza"
+            submitText="Actualizează"
           />
         }
       />

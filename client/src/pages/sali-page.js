@@ -29,7 +29,7 @@ const SaliPage = () => {
     {
       field: "numar",
       headerName: "Numar",
-      description: "Numarul salii",
+      description: "Numărul sălii",
       flex: 1,
       renderCell: (params) => (
         <Tooltip title={params.value.toString()}>
@@ -39,7 +39,7 @@ const SaliPage = () => {
     },
     {
       field: "actiuni",
-      headerName: "Actiuni",
+      headerName: "Acțiuni",
       sortable: false,
       filterable: false,
       flex: 1,
@@ -57,9 +57,9 @@ const SaliPage = () => {
             setToBeDeleted={setSalaToBeDeleted}
             editUrl={`${BACKEND_URL}/api/sali/${salaToBeEdited.id}`}
             deleteUrl={`${BACKEND_URL}/api/sali/${salaToBeDeleted.id}`}
-            updateTitle="Actualizeaza sala"
-            deleteTitle="Sterge sala"
-            deleteContent="Esti sigur ca vrei sa stergi aceasta sala?"
+            updateTitle="Actualizează sală"
+            deleteTitle="Șterge sală"
+            deleteContent="Ești sigur că vrei să ștergi această sală?"
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             Form={SaliForm}
@@ -121,21 +121,21 @@ const SaliPage = () => {
   return (
     <div className="pages-layout">
       <Header
-        pageTitleText="Sali"
-        addButtonText="Adauga sala"
+        pageTitleText="Săli"
+        addButtonText="Adaugă sală"
         handleOpenAddModal={handleOpenAddSalaModal}
       />
       <CustomGrid columns={columns} rows={sali} loading={loading} />
       <BasicModalWithoutButtons
         open={openAddSalaModal}
         onClose={handleCloseAddSalaModal}
-        title="Adauga sala"
-        subTitle="Completati campurile"
+        title="Adaugă sală"
+        subTitle="Completați câmpurile"
         content={
           <SaliForm
             onSubmit={handleAddSala}
             onClose={handleCloseAddSalaModal}
-            submitText="Adauga"
+            submitText="Adaugă"
           />
         }
       />

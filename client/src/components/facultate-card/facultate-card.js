@@ -105,20 +105,20 @@ const FacultateCard = (props) => {
       <BasicModal
         open={openDeleteModal}
         onClose={handleCloseDeleteModal}
-        title="Sterge facultate"
+        title="Șterge facultate"
         onSubmit={handleDelete}
-        content={`Esti sigur ca vrei sa stergi aceasta facultate?`}
+        content={`Ești sigur că vrei să ștergi această facultate?`}
       />
       <BasicModalWithoutButtons
         open={openUpdateModal}
         onClose={handleCloseUpdateModal}
-        title="Actualizeaza facultate"
+        title="Actualizează facultate"
         content={
           <FacultateForm
             onSubmit={handleUpdate}
             onClose={handleCloseUpdateModal}
             facultate={facultate}
-            submitText="Actualizeaza"
+            submitText="Actualizează"
           />
         }
       />
